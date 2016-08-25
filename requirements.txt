@@ -1,0 +1,5 @@
+Django==1.9.6
+django-bootstrap3==7.0.1
+beautifulsoup4==4.4.1
+HamlPy3==0.84.0
+PyYAML==3.11

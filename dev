@@ -1,0 +1,56 @@
+#!bin/bash
+
+packages() {
+  source .packages/bin/activate
+}
+
+migrate() {
+  python manage.py makemigrations
+  python manage.py migrate
+  python manage.py loaddata fixtures/*.yaml
+}
+
+hamlpy() {
+  hamlpy-watcher . &
+}
+
+runserver() {
+  python manage.py runserver &
+}
+
+kill() {
+  pkill -f 'python manage.py runserver'
+  echo 'killed manage.py runserver...'
+  pkill -f 'hamlpy-watcher'
+  echo 'killed hamlpy-watcher...'
+  echo
+}
+
+case "$1" in
+  packages)
+    packages
+    ;;
+
+  migrate)
+    migrate
+    ;;
+
+  hamlpy)
+    hamlpy
+    ;;
+
+  runserver)
+    runserver
+    ;;
+
+  all)
+    packages
+    migrate
+    hamlpy
+    runserver
+    ;;
+
+  kill)
+    kill
+    ;;
+esac
