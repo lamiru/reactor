@@ -7,6 +7,9 @@ Re:actor
 - `$ virtualenv .packages`
 - `$ source .packages/bin/activate`
 - `$ pip install -r requirements.txt`
+- `$ mkdir config`
+- `$ touch config/env.py`
+- `$ echo "ENV = 'dev'" >> config/env.py`
 
 ## How to run
 

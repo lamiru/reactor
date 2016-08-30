@@ -1,5 +1,6 @@
 *.pyc
 *.html
 /.packages
+/config/env.py
 /static/CACHE
 /db.sqlite3
