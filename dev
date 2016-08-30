@@ -2,6 +2,7 @@
 
 packages() {
   source .packages/bin/activate
+  pip install -r requirements.txt
 }
 
 migrate() {

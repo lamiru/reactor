@@ -1,0 +1,17 @@
+{% extends "_layout.html" %}
+{% load bootstrap3 %}
+{% block content %}
+.mw-400.margin-center
+  %form{action: '', method: 'POST', enctype: 'multipart/form-data'}
+    {% csrf_token %}
+    %input{type: 'hidden', name: 'next', value: '{{ next }}'}
+    {% bootstrap_form form %}
+    .text-center.pt-10
+      {% buttons %}
+      {% if submit %}
+      %button.btn.btn-lg.btn-primary.mw-350 {{ submit }}
+      {% else %}
+      %button.btn.btn-lg.btn-primary.mw-350 Save
+      {% endif %}
+      {% endbuttons %}
+{% endblock %}
