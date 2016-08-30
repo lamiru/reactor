@@ -1,4 +1,5 @@
 *.pyc
 *.html
 /.packages
+/static/CACHE
 /db.sqlite3
