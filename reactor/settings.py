@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'debug_toolbar',
     'accounts',
+    'reactions',
 ]
 
 MIDDLEWARE_CLASSES = [
