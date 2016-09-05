@@ -8,8 +8,7 @@ packages() {
 migrate() {
   python manage.py makemigrations
   python manage.py migrate
-  echo "from django.contrib.auth.models import User; None if User.objects.filter(username='admin').exists() else User.objects.create_superuser('admin', '', 'password2')" | python manage.py shell
-  python manage.py loaddata fixtures/*.yaml
+  python manage.py loaddata fixtures/dev/*.yaml
 }
 
 hamlpy() {
