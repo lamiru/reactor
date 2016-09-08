@@ -4,7 +4,7 @@ from django.db import models
 
 class Reaction(models.Model):
     actor = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True)
-    topic = models.ForeignKey('self', db_index=True, related_name='topic_reactions')
+    topic = models.ForeignKey('self', null=True, db_index=True, related_name='topic_reactions')
     target = models.ForeignKey('self', null=True, db_index=True, related_name='target_reactions')
     contents = models.TextField(db_index=True)
     good_score = models.PositiveIntegerField(db_index=True)
