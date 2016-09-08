@@ -32,6 +32,20 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
+        {% if user.is_authenticated %}
+        #navbar.navbar-collapse.collapse
+          %ul.nav.navbar-nav.navbar-right.noselect
+            %li
+              .dropdown
+                #dropdown-menu-1.navbar-icon.dropdown-toggle{'aria-expanded': 'false', 'aria-haspopup': 'true', 'data-toggle': 'dropdown'}
+                  {% bootstrap_icon 'cog' %}
+                %ul.dropdown-menu{'aria-labelledby': 'dropdown-menu-1'}
+                  %li
+                    %a{href: '{% url "accounts:index" %}'} Index
+                  %li.divider{role: 'separator'}
+                  %li
+                    %a{href: '{% url "accounts:logout" %}'} Log out
+        {% endif %}
     %section.main-section
       {% for message in messages %}
       %aside.alert{class: 'alert-{{ message.tags }}'}
