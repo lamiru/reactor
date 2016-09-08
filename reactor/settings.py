@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'accounts',
     'reactions',
+    'topics',
 ]
 
 MIDDLEWARE_CLASSES = [
