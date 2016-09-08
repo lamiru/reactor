@@ -7,4 +7,6 @@
   .panel-heading {{ topic.actor }} ({{ topic.created_at }})
   .panel-body {{ topic.contents }}
 {% endfor %}
+.text-center
+  %a.btn.btn-default.btn-large{href: '{% url "topics:new" %}'} New
 {% endblock %}

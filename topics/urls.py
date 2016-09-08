@@ -5,4 +5,5 @@ app_name = 'topics'
 
 urlpatterns = [
     url(r'^$', index, name='index'),
+    url(r'^new/$', new, name='new'),
 ]
