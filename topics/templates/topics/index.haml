@@ -1,0 +1,10 @@
+{% extends "_layout.html" %}
+{% block css %}
+{% endblock %}
+{% block content %}
+{% for topic in topic_list %}
+.panel.panel-default
+  .panel-heading {{ topic.actor }} ({{ topic.created_at }})
+  .panel-body {{ topic.contents }}
+{% endfor %}
+{% endblock %}
