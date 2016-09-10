@@ -1,4 +1,5 @@
 {% extends "_layout.html" %}
+{% load bootstrap3 %}
 {% block css %}
 {% endblock %}
 {% block content %}
@@ -7,6 +8,14 @@
   .panel-heading {{ topic.actor }} ({{ topic.created_at }})
   .panel-body {{ topic.contents }}
 {% endfor %}
-.text-center
-  %a.btn.btn-default.btn-large{href: '{% url "topics:new" %}'} New
+.container
+  .row
+    %form{action: '{% url "topics:new" %}', method: 'POST', enctype: 'multipart/form-data'}
+      {% csrf_token %}
+      .col-sm-8
+        {% bootstrap_field form.contents show_label=False %}
+      .col-sm-4
+        {% buttons %}
+        %button.btn.btn-primary.width-100p Create Topic
+        {% endbuttons %}
 {% endblock %}
