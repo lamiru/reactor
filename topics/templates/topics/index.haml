@@ -5,7 +5,13 @@
 {% block content %}
 {% for topic in topic_list %}
 .panel.panel-default
-  .panel-heading {{ topic.actor }} ({{ topic.created_at }})
+  .panel-heading
+    .pull-left {{ topic.actor }} ({{ topic.created_at }})
+    .pull-right
+      %form{action: '{% url "topics:delete" topic.pk %}', method: 'POST', enctype: 'multipart/form-data'}
+        {% csrf_token %}
+        %button Delete
+    .clearfix
   .panel-body {{ topic.contents }}
 {% endfor %}
 .container
