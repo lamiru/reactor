@@ -1,0 +1,11 @@
+{% extends "_layout.html" %}
+{% block content %}
+%h3 Tree
+{% for reaction in reaction_list reversed %}
+  %ul
+    %li {{ reaction.actor }}
+    %li
+      %a{href: '{% url "reactions:detail" reaction.pk %}'}
+        %span {{ reaction.contents }}
+{% endfor %}
+{% endblock %}

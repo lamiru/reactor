@@ -10,7 +10,8 @@
     .pull-right
       %form{action: '{% url "topics:delete" topic.pk %}', method: 'POST', enctype: 'multipart/form-data'}
         {% csrf_token %}
-        %button Delete
+        %a.btn.btn-sm.btn-warning{href: '{% url "reactions:detail" topic.pk %}'} Detail
+        %button.btn.btn-sm.btn-warning Delete
     .clearfix
   .panel-body {{ topic.contents }}
 {% endfor %}
