@@ -6,14 +6,28 @@ from .models import Reaction
 @login_required
 def detail(request, pk):
     reaction = get_object_or_404(Reaction, pk=pk)
-    reaction_list = []
-    reaction_list.append(reaction)
+    list_3 = reaction.target_reactions.all()
+    reaction_tree = []
+    reaction_tree.append(reaction)
 
-    for reaction in reaction_list:
+    for reaction in reaction_tree:
         if reaction.target is not None:
             reaction = reaction.target
-            reaction_list.append(reaction)
+            reaction_tree.append(reaction)
+
+    try:
+        list_2 = reaction_tree[1].target_reactions.all()
+    except:
+        list_2 = None
+    try:
+        list_1 = reaction_tree[2].target_reactions.all()
+    except:
+        list_1 = None
+    print(reaction_tree)
 
     return render(request, 'reactions/detail.html', {
-        'reaction_list': reaction_list,
+        'reaction_tree': reaction_tree,
+        'list_3': list_3,
+        'list_2': list_2,
+        'list_1': list_1,
     })

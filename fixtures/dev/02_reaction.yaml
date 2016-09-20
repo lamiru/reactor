@@ -69,3 +69,25 @@
     pass_score: 0
     created_at: 2000-01-01T00:00:00+00:00
     updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 8
+  fields:
+    actor: 2
+    topic: 3
+    target: 5
+    contents: content8
+    good_score: 0
+    pass_score: 0
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 9
+  fields:
+    actor: 4
+    topic: 3
+    target: 5
+    contents: content9
+    good_score: 0
+    pass_score: 0
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
