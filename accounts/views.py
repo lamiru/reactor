@@ -1,9 +1,11 @@
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render
 from django.views.generic import FormView
+from .forms import *
 
 
 class LoginView(FormView):
@@ -27,6 +29,19 @@ class LoginView(FormView):
         user = form.get_user()
         auth_login(self.request, user)
         return super(LoginView, self).form_valid(form)
+
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+    else:
+        form = ProfileForm(instance=request.user)
+    return render(request, '_form.html', {
+        'form': form,
+    })
 
 
 @login_required
