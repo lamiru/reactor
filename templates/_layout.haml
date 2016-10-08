@@ -1,4 +1,4 @@
-{% load staticfiles compress bootstrap3 %}
+{% load staticfiles compress bootstrap3 thumbnail %}
 !!!
 %html
   %head
@@ -35,6 +35,10 @@
         {% if user.is_authenticated %}
         #navbar.navbar-collapse.collapse
           %ul.nav.navbar-nav.navbar-right.noselect
+            %li
+              {% thumbnail user.user_profile.photo "45x45" crop="center" as im %}
+                %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+              {% endthumbnail %}
             %li
               .dropdown
                 #dropdown-menu-1.navbar-icon.dropdown-toggle{'aria-expanded': 'false', 'aria-haspopup': 'true', 'data-toggle': 'dropdown'}

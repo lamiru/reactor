@@ -34,17 +34,17 @@ class LoginView(FormView):
 
 @login_required
 def profile(request):
-    profile, is_created = UserProfile.objects.get_or_create(user=request.user)
+    user_profile, is_created = UserProfile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         uform = UserForm(request.POST, instance=request.user)
-        pform = UserProfileForm(request.POST, request.FILES, instance=profile)
+        pform = UserProfileForm(request.POST, request.FILES, instance=user_profile)
         if uform.is_valid() and pform.is_valid():
             uform.save()
             pform.save()
             return redirect('accounts:profile')
     else:
         uform = UserForm(instance=request.user)
-        pform = UserProfileForm(instance=profile)
+        pform = UserProfileForm(instance=user_profile)
     return render(request, 'accounts/profile.html', {
         'uform': uform,
         'pform': pform,

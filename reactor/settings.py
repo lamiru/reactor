@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'compressor',
     'bootstrap3',
+    'sorl.thumbnail',
     'debug_toolbar',
     'accounts',
     'reactions',
