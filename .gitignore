@@ -3,4 +3,5 @@
 /.packages
 /config/env.py
 /static/CACHE
+/media
 /db.sqlite3
