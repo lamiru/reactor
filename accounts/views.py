@@ -3,9 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import FormView
 from .forms import *
+from .models import *
 
 
 class LoginView(FormView):
@@ -33,14 +34,20 @@ class LoginView(FormView):
 
 @login_required
 def profile(request):
+    profile, is_created = UserProfile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
+        uform = UserForm(request.POST, instance=request.user)
+        pform = UserProfileForm(request.POST, request.FILES, instance=profile)
+        if uform.is_valid() and pform.is_valid():
+            uform.save()
+            pform.save()
+            return redirect('accounts:profile')
     else:
-        form = ProfileForm(instance=request.user)
-    return render(request, '_form.html', {
-        'form': form,
+        uform = UserForm(instance=request.user)
+        pform = UserProfileForm(instance=profile)
+    return render(request, 'accounts/profile.html', {
+        'uform': uform,
+        'pform': pform,
     })
 
 

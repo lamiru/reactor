@@ -1,0 +1,16 @@
+{% extends "_layout.html" %}
+{% load bootstrap3 %}
+{% block content %}
+.mw-400.margin-center
+  %form{action: '', method: 'POST', enctype: 'multipart/form-data'}
+    {% csrf_token %}
+    {% bootstrap_form uform %}
+    {% bootstrap_form pform %}
+    {% buttons %}
+      {% if submit %}
+      %button.btn.btn-lg.btn-primary.width-100p {{ submit }}
+      {% else %}
+      %button.btn.btn-lg.btn-primary.width-100p Save
+      {% endif %}
+    {% endbuttons %}
+{% endblock %}
