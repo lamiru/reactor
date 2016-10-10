@@ -22,8 +22,7 @@ def new(request):
         if form.is_valid():
             topic = form.save(commit=False)
             topic.actor = request.user
-            topic.good_score = 0
-            topic.pass_score = 0
+            topic.score = 0
             topic.save()
             return redirect('topics:index')
     raise Http404()
