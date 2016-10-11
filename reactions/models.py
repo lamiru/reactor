@@ -6,6 +6,7 @@ class Reaction(models.Model):
     actor = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True)
     topic = models.ForeignKey('self', null=True, db_index=True, related_name='topic_reactions')
     target = models.ForeignKey('self', null=True, db_index=True, related_name='target_reactions')
+    title = models.CharField(max_length=100, db_index=True)
     contents = models.TextField(db_index=True)
     score = models.PositiveIntegerField(db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)

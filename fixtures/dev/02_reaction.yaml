@@ -2,6 +2,7 @@
   pk: 1
   fields:
     actor: 1
+    title: title1
     contents: content1
     score: 0
     created_at: 2000-01-01T00:00:00+00:00
@@ -12,6 +13,7 @@
     actor: 2
     topic: 1
     target: 1
+    title: title2
     contents: content2
     score: 0
     created_at: 2000-01-01T00:00:00+00:00
@@ -20,6 +22,7 @@
   pk: 3
   fields:
     actor: 3
+    title: title3
     contents: content3
     score: 0
     created_at: 2000-01-01T00:00:00+00:00
@@ -30,6 +33,7 @@
     actor: 4
     topic: 3
     target: 3
+    title: title4
     contents: content4
     score: 0
     created_at: 2000-01-01T00:00:00+00:00
@@ -40,6 +44,7 @@
     actor: 5
     topic: 3
     target: 4
+    title: title5
     contents: content5
     score: 0
     created_at: 2000-01-01T00:00:00+00:00
@@ -48,6 +53,7 @@
   pk: 6
   fields:
     actor: 5
+    title: title6
     contents: content6
     score: 0
     created_at: 2016-09-01T13:13:13+00:00
@@ -58,6 +64,7 @@
     actor: 3
     topic: 3
     target: 5
+    title: title7
     contents: content7
     score: 0
     created_at: 2000-01-01T00:00:00+00:00
@@ -68,6 +75,7 @@
     actor: 2
     topic: 3
     target: 5
+    title: title8
     contents: content8
     score: 0
     created_at: 2000-01-01T00:00:00+00:00
@@ -78,6 +86,7 @@
     actor: 4
     topic: 3
     target: 5
+    title: title9
     contents: content9
     score: 0
     created_at: 2000-01-01T00:00:00+00:00

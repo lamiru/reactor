@@ -11,7 +11,9 @@
         %li {{ reaction.actor }}
         %li
           %a{href: '{% url "reactions:detail" reaction.pk %}'}
-            %span {{ reaction.contents }}
+            %span {{ reaction.title }}
+        %li
+          %span {{ reaction.contents }}
     {% endfor %}
 .container
   .row
@@ -23,13 +25,19 @@
         .panel.panel-primary
           .panel-heading {{ reaction.actor }}
           .panel-body
-            %a{href: '{% url "reactions:detail" reaction.pk %}'}
+            %p.mb-0
+              %a{href: '{% url "reactions:detail" reaction.pk %}'}
+                %span {{ reaction.title }}
+            %p.mb-0
               %span {{ reaction.contents }}
         {% else %}
         .panel.panel-default
           .panel-heading {{ reaction.actor }}
           .panel-body
-            %a{href: '{% url "reactions:detail" reaction.pk %}'}
+            %p.mb-0
+              %a{href: '{% url "reactions:detail" reaction.pk %}'}
+                %span {{ reaction.title }}
+            %p.mb-0
               %span {{ reaction.contents }}
         {% endif %}
       {% endfor %}

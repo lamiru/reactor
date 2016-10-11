@@ -10,16 +10,19 @@
     .pull-right
       %form{action: '{% url "topics:delete" topic.pk %}', method: 'POST', enctype: 'multipart/form-data'}
         {% csrf_token %}
-        %a.btn.btn-sm.btn-warning{href: '{% url "reactions:detail" topic.pk %}'} Detail
         %button.btn.btn-sm.btn-warning Delete
     .clearfix
-  .panel-body {{ topic.contents }}
+  .panel-body
+    %a{href: '{% url "reactions:detail" topic.pk %}'}
+      %strong {{ topic.title }}
+    %p {{ topic.contents }}
 {% endfor %}
 .container
   .row
     %form{action: '{% url "topics:new" %}', method: 'POST', enctype: 'multipart/form-data'}
       {% csrf_token %}
       .col-sm-8
+        {% bootstrap_field form.title show_label=False %}
         {% bootstrap_field form.contents show_label=False %}
       .col-sm-4
         {% buttons %}
