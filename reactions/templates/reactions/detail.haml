@@ -12,8 +12,6 @@
         %li
           %a{href: '{% url "reactions:detail" reaction.pk %}'}
             %span {{ reaction.title }}
-        %li
-          %span {{ reaction.contents }}
     {% endfor %}
 .container
   .row
@@ -29,7 +27,11 @@
               %a{href: '{% url "reactions:detail" reaction.pk %}'}
                 %span {{ reaction.title }}
             %p.mb-0
+              {% if reaction.deleted == True %}
+              %span This reaction is deleted.
+              {% else %}
               %span {{ reaction.contents }}
+              {% endif %}
         {% else %}
         .panel.panel-default
           .panel-heading {{ reaction.actor }}
@@ -38,8 +40,15 @@
               %a{href: '{% url "reactions:detail" reaction.pk %}'}
                 %span {{ reaction.title }}
             %p.mb-0
+              {% if reaction.deleted == True %}
+              %span This reaction is deleted.
+              {% else %}
               %span {{ reaction.contents }}
+              {% endif %}
         {% endif %}
       {% endfor %}
     {% endfor %}
+      -# %form{action: '{% url "topics:delete" topic.pk %}', method: 'POST', enctype: 'multipart/form-data'}
+      -#   {% csrf_token %}
+      -#   %button.btn.btn-sm.btn-warning Delete
 {% endblock %}

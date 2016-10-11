@@ -1,5 +1,6 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Reaction
 
 
@@ -21,3 +22,19 @@ def detail(request, pk):
         'tree': tree,
         'lists': lists,
     })
+
+
+@login_required
+def delete(request, pk):
+    reaction = get_object_or_404(Reaction, pk=pk)
+    if (not request.user.is_staff) and reaction.actor != request.user:
+        messages.error(request, "You don't have permission.")
+    else:
+        if request.method == 'POST':
+            reaction.deleted = True
+            reaction.save()
+        else:
+            return render(request, 'reactions/delete.html', {
+                'reaction': reaction,
+            })
+    return redirect('topics:index')
