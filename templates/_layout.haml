@@ -32,9 +32,9 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-        {% if user.is_authenticated %}
         #navbar.navbar-collapse.collapse
           %ul.nav.navbar-nav.navbar-right.noselect
+            {% if user.is_authenticated %}
             %li
               {% thumbnail user.user_profile.photo "45x45" crop="center" as im %}
                 %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
@@ -50,7 +50,20 @@
                   %li.divider{role: 'separator'}
                   %li
                     %a{href: '{% url "accounts:logout" %}'} Log out
-        {% endif %}
+            {% else %}
+            %li
+              .dropdown
+                #dropdown-menu-1.navbar-icon.dropdown-toggle{'aria-expanded': 'false', 'aria-haspopup': 'true', 'data-toggle': 'dropdown'}
+                  {% bootstrap_icon 'cog' %}
+                %ul.dropdown-menu{'aria-labelledby': 'dropdown-menu-1'}
+                  %li
+                    %a{href: '{% url "topics:index" %}'} Topics
+                  %li.divider{role: 'separator'}
+                  %li
+                    %a{href: '{% url "accounts:login" %}'} Log In
+                  %li
+                    %a{href: '{% url "accounts:signup" %}'} Sign Up
+            {% endif %}
     %section.main-section
       {% for message in messages %}
       %aside.alert{class: 'alert-{{ message.tags }}'}

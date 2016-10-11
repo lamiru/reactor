@@ -8,6 +8,10 @@
     is_superuser: true
     is_staff: true
     is_active: true
+- model: accounts.userprofile
+  pk: 1
+  fields:
+    user: 1
 - model: auth.user
   pk: 2
   fields:
@@ -18,6 +22,10 @@
     is_superuser: false
     is_staff: true
     is_active: true
+- model: accounts.userprofile
+  pk: 2
+  fields:
+    user: 2
 - model: auth.user
   pk: 3
   fields:
@@ -28,6 +36,10 @@
     is_superuser: false
     is_staff: true
     is_active: true
+- model: accounts.userprofile
+  pk: 3
+  fields:
+    user: 3
 - model: auth.user
   pk: 4
   fields:
@@ -38,6 +50,10 @@
     is_superuser: false
     is_staff: false
     is_active: true
+- model: accounts.userprofile
+  pk: 4
+  fields:
+    user: 4
 - model: auth.user
   pk: 5
   fields:
@@ -48,6 +64,10 @@
     is_superuser: false
     is_staff: false
     is_active: true
+- model: accounts.userprofile
+  pk: 5
+  fields:
+    user: 5
 - model: auth.user
   pk: 6
   fields:
@@ -58,3 +78,7 @@
     is_superuser: false
     is_staff: false
     is_active: true
+- model: accounts.userprofile
+  pk: 6
+  fields:
+    user: 6

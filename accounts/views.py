@@ -32,9 +32,24 @@ class LoginView(FormView):
         return super(LoginView, self).form_valid(form)
 
 
+def signup(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            UserProfile.objects.create(user=user)
+            next_url = request.GET.get('next', 'accounts:index')
+            return redirect(next_url)
+    else:
+        form = SignupForm()
+    return render(request, '_form.html', {
+        'form': form,
+    })
+
+
 @login_required
 def profile(request):
-    user_profile, is_created = UserProfile.objects.get_or_create(user=request.user)
+    user_profile, is_created = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
         uform = UserForm(request.POST, instance=request.user)
         pform = UserProfileForm(request.POST, request.FILES, instance=user_profile)
