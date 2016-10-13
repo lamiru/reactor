@@ -45,7 +45,7 @@ class Reaction(models.Model):
 
 
 class Rate(models.Model):
-    rator = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True)
     topic = models.ForeignKey(Reaction, db_index=True, related_name='topic_rates')
     reaction = models.ForeignKey(Reaction, db_index=True, related_name='reaction_rates')
     RATE_CHOICES = (
@@ -57,7 +57,7 @@ class Rate(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        unique_together = ('rator', 'reaction')
+        unique_together = ('user', 'reaction')
 
     def __str__(self):
         return str(self.id)

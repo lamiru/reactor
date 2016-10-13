@@ -79,4 +79,19 @@
       %h3 {{ current_reaction.title }}
       %p {{ current_reaction.contents }}
       {% endif %}
+      {% if current_rate %}
+      .pt-10
+        %button.btn.btn-info.width-100p You rated as {{ current_rate }}.
+      {% else %}
+      %form{action: '{% url "reactions:good" current_reaction.pk %}', method: 'POST', enctype: 'multipart/form-data'}
+        {% csrf_token %}
+        %input{type: 'hidden', name: 'next', value: '{{ next }}'}
+        .pt-10
+          %button.btn.btn-primary.width-100p Good
+      %form{action: '{% url "reactions:pass" current_reaction.pk %}', method: 'POST', enctype: 'multipart/form-data'}
+        {% csrf_token %}
+        %input{type: 'hidden', name: 'next', value: '{{ next }}'}
+        .pt-10
+          %button.btn.btn-default.width-100p Pass
+      {% endif %}
 {% endblock %}
