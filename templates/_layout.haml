@@ -36,9 +36,13 @@
           %ul.nav.navbar-nav.navbar-right.noselect
             {% if user.is_authenticated %}
             %li
+              {% if user.user_profile.photo %}
               {% thumbnail user.user_profile.photo "45x45" crop="center" as im %}
-                %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+              %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
               {% endthumbnail %}
+              {% else %}
+              %img{src: '{% static "images/pica.jpg" %}', width: '45', height: '45'}
+              {% endif %}
             %li
               .dropdown
                 #dropdown-menu-1.navbar-icon.dropdown-toggle{'aria-expanded': 'false', 'aria-haspopup': 'true', 'data-toggle': 'dropdown'}
