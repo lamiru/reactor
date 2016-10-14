@@ -1,5 +1,5 @@
 {% extends "_layout.html" %}
-{% load staticfiles thumbnail %}
+{% load bootstrap3 staticfiles thumbnail %}
 {% block content %}
 .container
   .row
@@ -81,7 +81,15 @@
       {% endif %}
       {% if current_rate %}
       .pt-10
-        %button.btn.btn-info.width-100p You rated as {{ current_rate }}.
+        .well.well-sm.text-center
+          %span You rated as {{ current_rate }}.
+      %form{action: '{% url "reactions:reaction_new" current_reaction.pk %}', method: 'POST', enctype: 'multipart/form-data'}
+        {% csrf_token %}
+        %input{type: 'hidden', name: 'next', value: '{{ next }}'}
+        {% bootstrap_form form show_label=False %}
+        {% buttons %}
+        %button.btn.btn-primary.width-100p Save
+        {% endbuttons %}
       {% else %}
       %form{action: '{% url "reactions:good" current_reaction.pk %}', method: 'POST', enctype: 'multipart/form-data'}
         {% csrf_token %}

@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
+from .forms import *
 from .models import *
 
 
@@ -30,11 +31,14 @@ def detail(request, pk):
     except ObjectDoesNotExist:
         current_rate = None
 
+    form = ReactionForm()
+
     return render(request, 'reactions/detail.html', {
         'tree': tree,
         'lists': lists,
         'current_reaction': current_reaction,
         'current_rate': current_rate,
+        'form': form,
     })
 
 
@@ -72,6 +76,22 @@ def rate_pass(request, pk):
         return redirect('reactions:detail', pk)
     else:
         return Http404()
+
+
+@login_required
+def reaction_new(request, pk):
+    if request.method == 'POST':
+        form = ReactionForm(request.POST)
+        if form.is_valid():
+            target = get_object_or_404(Reaction, pk=pk)
+            get_object_or_404(Rate, user=request.user, reaction=pk)
+            reaction = form.save(commit=False)
+            reaction.actor = request.user
+            reaction.target = target
+            reaction.topic = target.topic
+            reaction.save()
+            return redirect('reactions:detail', reaction.pk)
+    raise Http404()
 
 
 @login_required

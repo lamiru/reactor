@@ -5,7 +5,7 @@ from .models import *
 class ReactionAdmin(admin.ModelAdmin):
     list_display = (
         'id', 'actor', 'topic', 'target',
-        'contents', 'score', 'deleted',
+        'title', 'contents', 'score', 'deleted',
         'created_at', 'updated_at',
     )
 
