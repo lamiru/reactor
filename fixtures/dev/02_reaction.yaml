@@ -4,8 +4,6 @@
     actor: 1
     title: title1
     contents: content1
-    score: 0
-    deleted: 0
     created_at: 2000-01-01T00:00:00+00:00
     updated_at: 2000-01-01T12:00:00+00:00
 - model: reactions.reaction
@@ -16,8 +14,6 @@
     target: 1
     title: title2
     contents: content2
-    score: 0
-    deleted: 0
     created_at: 2000-01-01T00:00:00+00:00
     updated_at: 2000-01-01T12:00:00+00:00
 - model: reactions.reaction
@@ -26,8 +22,6 @@
     actor: 3
     title: title3
     contents: content3
-    score: 0
-    deleted: 0
     created_at: 2000-01-01T00:00:00+00:00
     updated_at: 2000-01-01T12:00:00+00:00
 - model: reactions.reaction
@@ -38,8 +32,6 @@
     target: 3
     title: title4
     contents: content4
-    score: 0
-    deleted: 0
     created_at: 2000-01-01T00:00:00+00:00
     updated_at: 2000-01-01T12:00:00+00:00
 - model: reactions.reaction
@@ -50,8 +42,6 @@
     target: 4
     title: title5
     contents: content5
-    score: 0
-    deleted: 0
     created_at: 2000-01-01T00:00:00+00:00
     updated_at: 2000-01-01T12:00:00+00:00
 - model: reactions.reaction
@@ -60,8 +50,6 @@
     actor: 5
     title: title6
     contents: content6
-    score: 0
-    deleted: 0
     created_at: 2016-09-01T13:13:13+00:00
     updated_at: 2016-09-01T13:13:13+00:00
 - model: reactions.reaction
@@ -72,8 +60,6 @@
     target: 5
     title: title7
     contents: content7
-    score: 0
-    deleted: 0
     created_at: 2000-01-01T00:00:00+00:00
     updated_at: 2000-01-01T12:00:00+00:00
 - model: reactions.reaction
@@ -84,7 +70,6 @@
     target: 5
     title: title8
     contents: content8
-    score: 0
     deleted: 1
     created_at: 2000-01-01T00:00:00+00:00
     updated_at: 2000-01-01T12:00:00+00:00
@@ -96,7 +81,5 @@
     target: 5
     title: title9
     contents: content9
-    score: 0
-    deleted: 0
     created_at: 2000-01-01T00:00:00+00:00
     updated_at: 2000-01-01T12:00:00+00:00

@@ -8,7 +8,7 @@ class Reaction(models.Model):
     target = models.ForeignKey('self', null=True, blank=True, db_index=True, related_name='target_reactions')
     title = models.CharField(max_length=100, db_index=True)
     contents = models.TextField(db_index=True)
-    score = models.PositiveIntegerField(db_index=True)
+    score = models.PositiveIntegerField(default=0, db_index=True)
     deleted = models.BooleanField(default=False, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
