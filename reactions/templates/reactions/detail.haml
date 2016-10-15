@@ -59,20 +59,25 @@
           {% endfor %}
         {% endfor %}
     .col-xs-3
-      %table
-        %tbody
-          %tr
-            %td
-              {% if current_reaction.actor.user_profile.photo %}
-              {% thumbnail current_reaction.actor.user_profile.photo "45x45" crop="center" as im %}
-              %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
-              {% endthumbnail %}
-              {% else %}
-              %img{src: '{% static "images/pica.jpg" %}', width: '45', height: '45'}
-              {% endif %}
-            %td
-              %h5 {{ current_reaction.actor.username }}
-              %h6 {{ current_reaction.created_at }}
+      .pull-left
+        %table
+          %tbody
+            %tr
+              %td
+                {% if current_reaction.actor.user_profile.photo %}
+                {% thumbnail current_reaction.actor.user_profile.photo "45x45" crop="center" as im %}
+                %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+                {% endthumbnail %}
+                {% else %}
+                %img{src: '{% static "images/pica.jpg" %}', width: '45', height: '45'}
+                {% endif %}
+              %td
+                %div {{ current_reaction.actor.username }}
+                %div {{ current_reaction.created_at }}
+      .pull-right
+        %h5
+          %strong {{ current_reaction.score }}
+      .clearfix
       {% if current_reaction.deleted == True %}
       %h3 This reaction is deleted.
       {% else %}

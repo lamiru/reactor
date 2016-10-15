@@ -1,0 +1,72 @@
+- model: reactions.rate
+  pk: 1
+  fields:
+    user: 1
+    topic: 1
+    reaction: 2
+    rate: G
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.rate
+  pk: 2
+  fields:
+    user: 3
+    topic: 1
+    reaction: 2
+    rate: G
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.rate
+  pk: 3
+  fields:
+    user: 4
+    topic: 1
+    reaction: 2
+    rate: P
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.rate
+  pk: 4
+  fields:
+    user: 1
+    topic: 3
+    reaction: 3
+    rate: G
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.rate
+  pk: 5
+  fields:
+    user: 2
+    topic: 3
+    reaction: 3
+    rate: P
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.rate
+  pk: 6
+  fields:
+    user: 4
+    topic: 3
+    reaction: 7
+    rate: G
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.rate
+  pk: 7
+  fields:
+    user: 5
+    topic: 3
+    reaction: 7
+    rate: G
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.rate
+  pk: 8
+  fields:
+    user: 1
+    topic: 3
+    reaction: 7
+    rate: G
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00

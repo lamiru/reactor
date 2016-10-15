@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.db.models import Sum
 
 
 class Reaction(models.Model):
@@ -15,6 +16,10 @@ class Reaction(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+    def topic_score(self):
+        result = Reaction.objects.filter(topic=self.topic).aggregate(Sum('score'))['score__sum']
+        return result
 
     def get_tree(self):
         reaction_tree = []

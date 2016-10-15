@@ -1,13 +1,28 @@
 {% extends "_layout.html" %}
-{% load bootstrap3 %}
+{% load bootstrap3 thumbnail staticfiles %}
 {% block css %}
 {% endblock %}
 {% block content %}
 {% for topic in topic_list %}
 .panel.panel-default
   .panel-heading
-    .pull-left {{ topic.actor }}
-    .pull-right {{ topic.created_at }}
+    .pull-left
+      %table
+        %tbody
+          %tr
+            %td
+              {% if topic.actor.user_profile.photo %}
+              {% thumbnail topic.actor.user_profile.photo "45x45" crop="center" as im %}
+              %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+              {% endthumbnail %}
+              {% else %}
+              %img{src: '{% static "images/pica.jpg" %}', width: '45', height: '45'}
+              {% endif %}
+            %td
+              %div {{ topic.actor.username }}
+              %div {{ topic.created_at }}
+    .pull-right
+      %h5 Topic Score {{ topic.topic_score }}
     .clearfix
   .panel-body
     %a{href: '{% url "reactions:detail" topic.pk %}'}
