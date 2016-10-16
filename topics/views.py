@@ -2,15 +2,35 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect
 from reactions.models import Reaction
-from .forms import TopicForm
+from .forms import *
 
 
 def index(request):
     topic_list = Reaction.objects.filter(target=None, deleted=False).order_by('-id')
-    form = TopicForm()
+    tform = TopicForm()
+    sform = SearchForm()
     return render(request, 'topics/index.html', {
         'topic_list': topic_list,
-        'form': form,
+        'tform': tform,
+        'sform': sform,
+    })
+
+
+def search(request):
+    if not 'q' in request.GET:
+        return redirect ('topics:index')
+    query = request.GET['q']
+
+    title_list = Reaction.objects.filter(
+        target=None, deleted=False, title__contains=query
+    ).order_by('-id')
+    contents_list = Reaction.objects.filter(
+        target=None, deleted=False, contents__contains=query
+    ).order_by('-id')
+    topic_list = title_list | contents_list
+
+    return render(request, 'topics/search.html', {
+        'topic_list': topic_list,
     })
 
 

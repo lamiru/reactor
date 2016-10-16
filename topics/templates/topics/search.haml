@@ -5,15 +5,10 @@
 {% block content %}
 .container
   .row
-    %form{action: '{% url "topics:search" %}', method: 'GET', enctype: 'multipart/form-data'}
-      .col-xs-11
-        {% bootstrap_field sform.q show_label=False %}
-      .col-xs-1
-        {% buttons %}
-        %button.btn.btn-primary.width-100p &nbsp;{% bootstrap_icon 'search' %}&nbsp;
-        {% endbuttons %}
-{% for topic in topic_list %}
-.container
+    .col-xs-12
+      %h4 Search Results for
+        %strong {{ request.GET.q }}
+  {% for topic in topic_list %}
   .row
     .col-xs-12
       .panel.panel-default
@@ -40,16 +35,5 @@
           %a{href: '{% url "reactions:detail" topic.pk %}'}
             %strong {{ topic.title }}
           %p {{ topic.contents }}
-{% endfor %}
-.container
-  .row
-    %form{action: '{% url "topics:new" %}', method: 'POST', enctype: 'multipart/form-data'}
-      {% csrf_token %}
-      .col-xs-8
-        {% bootstrap_field tform.title show_label=False %}
-        {% bootstrap_field tform.contents show_label=False %}
-      .col-xs-4
-        {% buttons %}
-        %button.btn.btn-primary.width-100p Create Topic
-        {% endbuttons %}
+  {% endfor %}
 {% endblock %}
