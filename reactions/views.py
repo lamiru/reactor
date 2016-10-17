@@ -45,6 +45,11 @@ def detail(request, pk):
 
 
 @login_required
+def detail_s(request, pk):
+    return redirect('reactions:detail', pk)
+
+
+@login_required
 def ranking(request, pk):
     topic = get_object_or_404(Reaction, pk=pk)
     if not topic == topic.topic:
