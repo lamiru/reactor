@@ -1,7 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
+from django.db.models import Sum
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
@@ -39,6 +41,21 @@ def detail(request, pk):
         'current_reaction': current_reaction,
         'current_rate': current_rate,
         'form': form,
+    })
+
+
+@login_required
+def ranking(request, pk):
+    topic = get_object_or_404(Reaction, pk=pk)
+    if not topic == topic.topic:
+        return redirect('reactions:ranking', topic.topic)
+
+    score_by_actor = User.objects.filter(reaction__topic=topic) \
+        .annotate(score=Sum('reaction__score')) \
+        .order_by('-score')[:10]
+
+    return render(request, 'reactions/ranking.html', {
+        'score_by_actor': score_by_actor,
     })
 
 

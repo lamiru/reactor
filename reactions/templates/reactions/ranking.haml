@@ -1,0 +1,27 @@
+{% load staticfiles thumbnail %}
+{% block content %}
+%table.table.margin-center.vertical-middle
+  %thead
+    %tr
+      %th.text-center Rank
+      %th.text-center{colspan: '2'} Actor
+      %th.text-center Score
+  %tbody
+    {% for i in score_by_actor %}
+    %tr
+      %td.text-center
+        %span {{ forloop.counter }}
+      %td.text-right
+        {% if i.user_profile.photo %}
+        {% thumbnail i.actor.user_profile.photo "45x45" crop="center" as im %}
+        %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+        {% endthumbnail %}
+        {% else %}
+        %img{src: '{% static "images/pica.jpg" %}', width: '45', height: '45'}
+        {% endif %}
+      %td.text-left
+        %span {{ i.username }}
+      %td.text-center
+        %span {{ i.score }}
+    {% endfor %}
+{% endblock %}
