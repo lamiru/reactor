@@ -28,9 +28,11 @@ def search(request):
         target=None, deleted=False, contents__contains=query
     ).order_by('-id')
     topic_list = title_list | contents_list
+    sform = SearchForm()
 
     return render(request, 'topics/search.html', {
         'topic_list': topic_list,
+        'sform': sform,
     })
 
 

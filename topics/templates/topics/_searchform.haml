@@ -1,0 +1,8 @@
+{% load bootstrap3 %}
+%form{action: '{% url "topics:search" %}', method: 'GET', enctype: 'multipart/form-data'}
+  .col-xs-11
+    {% bootstrap_field sform.q show_label=False %}
+  .col-xs-1
+    {% buttons %}
+    %button.btn.btn-primary.width-100p &nbsp;{% bootstrap_icon 'search' %}&nbsp;
+    {% endbuttons %}

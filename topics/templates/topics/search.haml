@@ -5,6 +5,8 @@
 {% block content %}
 .container
   .row
+    {% include "topics/_searchform.html" %}
+  .row
     .col-xs-12
       %h4 Search Results for
         %strong {{ request.GET.q }}
@@ -36,4 +38,9 @@
             %strong {{ topic.title }}
           %p {{ topic.contents }}
   {% endfor %}
+  {% if not topic_list %}
+  .row
+    .col-xs-12
+      %h5 There are no results.
+  {% endif %}
 {% endblock %}
