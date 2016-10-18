@@ -68,16 +68,18 @@ def ranking(request, pk):
 def rate_good(request, pk):
     if request.method == 'POST':
         reaction = get_object_or_404(Reaction, pk=pk)
+        topic = reaction.topic
         try:
-            if reaction.topic is None:
-                topic = reaction
-            else:
-                topic = reaction.topic
             Rate.objects.create(user=request.user, topic=topic, reaction=reaction, rate='G')
             reaction.score += 1
             reaction.save()
         except IntegrityError:
-            messages.error(request, "You have already rated this reaction.")
+            rate = Rate.objects.get(user=request.user, reaction=reaction)
+            if rate.rate == 'P':
+                rate.rate = 'G'
+                reaction.score += 1
+                reaction.save()
+                rate.save()
         return redirect('reactions:detail', pk)
     else:
         return Http404()
@@ -87,14 +89,16 @@ def rate_good(request, pk):
 def rate_pass(request, pk):
     if request.method == 'POST':
         reaction = get_object_or_404(Reaction, pk=pk)
+        topic = reaction.topic
         try:
-            if reaction.topic is None:
-                topic = reaction
-            else:
-                topic = reaction.topic
             Rate.objects.create(user=request.user, topic=topic, reaction=reaction, rate='P')
         except IntegrityError:
-            messages.error(request, "You have already rated this reaction.")
+            rate = Rate.objects.get(user=request.user, reaction=reaction)
+            if rate.rate == 'G':
+                rate.rate = 'P'
+                reaction.score -= 1
+                reaction.save()
+                rate.save()
         return redirect('reactions:detail', pk)
     else:
         return Http404()
