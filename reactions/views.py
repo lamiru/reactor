@@ -23,15 +23,10 @@ def detail(request, pk):
     else:
         lists = [parents, brothers, children,]
 
-    current_rate = None
     try:
-        rate = Rate.objects.get(user=request.user, reaction=current_reaction)
-        if rate.rate == 'G':
-            current_rate = 'Good'
-        else:
-            current_rate = 'Pass'
+        rate = Rate.objects.get(user=request.user, reaction=current_reaction).rate
     except ObjectDoesNotExist:
-        current_rate = None
+        rate = None
 
     form = ReactionForm()
 
@@ -39,7 +34,7 @@ def detail(request, pk):
         'tree': tree,
         'lists': lists,
         'current_reaction': current_reaction,
-        'current_rate': current_rate,
+        'rate': rate,
         'form': form,
     })
 
