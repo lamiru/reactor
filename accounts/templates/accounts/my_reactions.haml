@@ -1,0 +1,48 @@
+{% extends "_layout.html" %}
+{% load bootstrap3 staticfiles thumbnail %}
+{% block content %}
+{% for topic in topic_list %}
+.container
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
+          .pull-left
+            %table
+              %tbody
+                %tr
+                  %td
+                    {% if topic.actor.user_profile.photo %}
+                    {% thumbnail topic.actor.user_profile.photo "45x45" crop="center" as im %}
+                    %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+                    {% endthumbnail %}
+                    {% else %}
+                    %img{src: '{% static "images/pica.jpg" %}', width: '45', height: '45'}
+                    {% endif %}
+                  %td
+                    %div {{ topic.actor.username }}
+                    %div {{ topic.created_at }}
+          .pull-right
+            %h5 Topic Score {{ topic.topic_score }}
+          .clearfix
+        .panel-body
+          %a{href: '{% url "reactions:detail" topic.pk %}'}
+            %strong {{ topic.title }}
+          %div {{ topic.contents }}
+        .panel-footer
+          .row
+            {% for r in topic.my_reactions.all %}
+            .col-xs-3
+              .panel.panel-default.mt-5.mb-5
+                .panel-body
+                  .pull-left
+                    .small {{ r.created_at }}
+                  .pull-right
+                    .small {{ r.score }}
+                  .clearfix
+                  %a{href: '{% url "reactions:detail" r.pk %}'}
+                    .strong {{ r.title }}
+            {% endfor %}
+          .clearfix
+{% endfor %}
+{% endblock %}

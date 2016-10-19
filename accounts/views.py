@@ -3,10 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic import FormView
 from .forms import *
 from .models import *
+from reactions.models import Reaction
 
 
 class LoginView(FormView):
@@ -44,6 +46,21 @@ def signup(request):
         form = SignupForm()
     return render(request, '_form.html', {
         'form': form,
+    })
+
+
+@login_required
+def my_reactions(request):
+    my_reactions = Reaction.objects.filter(actor=request.user)
+    topic_list = []
+    for reaction in my_reactions:
+        if reaction.topic not in topic_list:
+            reaction.topic.my_reactions = \
+                my_reactions.filter(topic=reaction.topic, target__isnull=False)
+            topic_list.append(reaction.topic)
+
+    return render(request, 'accounts/my_reactions.html', {
+        'topic_list': topic_list,
     })
 
 

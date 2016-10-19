@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^signup/$', signup, name="signup"),
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^logout/$', logout, {'next_page': 'accounts:login'}, name='logout'),
+    url(r'^my_reactions$', my_reactions, name='my_reactions'),
     url(r'^profile/$', profile, name='profile'),
     url(r'^$', index, name='index'),
 ]
