@@ -3,6 +3,7 @@ Re:actor
 
 ## How to install
 
+#### Repository Setting
 - Clone git repository.
 - `$ virtualenv .packages`
 - `$ source .packages/bin/activate`
@@ -10,6 +11,13 @@ Re:actor
 - `$ mkdir config`
 - `$ touch config/env.py`
 - `$ echo "ENV = 'dev'" >> config/env.py`
+
+#### Packages
+
+##### Mac
+
+- `$ brew install gettext`
+- `$ brew link gettext --force`
 
 ## How to run
 

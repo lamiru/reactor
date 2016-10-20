@@ -12,6 +12,11 @@ migrate() {
   python manage.py loaddata fixtures/dev/*.yaml
 }
 
+makemessages() {
+  python manage.py makemessages -l ja
+  python manage.py compilemessages
+}
+
 hamlpy() {
   hamlpy-watcher . &
 }
@@ -37,6 +42,10 @@ case "$1" in
     migrate
     ;;
 
+  makemessages)
+    makemessages
+    ;;
+
   hamlpy)
     hamlpy
     ;;
@@ -48,6 +57,7 @@ case "$1" in
   all)
     packages
     migrate
+    makemessages
     hamlpy
     runserver
     ;;

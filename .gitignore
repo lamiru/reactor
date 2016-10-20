@@ -1,5 +1,6 @@
 *.pyc
 *.html
+*.mo
 /.packages
 /config/env.py
 /static/CACHE

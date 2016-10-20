@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Q
 from django.shortcuts import render, redirect
+from django.utils.translation import ugettext_lazy as _
 from django.views.generic import FormView
 from .forms import *
 from .models import *
