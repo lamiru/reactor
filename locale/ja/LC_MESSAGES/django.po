@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-20 09:19+0000\n"
+"POT-Creation-Date: 2016-10-20 14:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: accounts/forms.py:10
 msgid "Username"
-msgstr ""
+msgstr "ユーザー名"
 
 #: accounts/forms.py:12
 msgid "Required. 20 characters or fewer. Letters, digits and _ only."
@@ -34,6 +34,26 @@ msgstr ""
 msgid "Hello World"
 msgstr "ハローワールド"
 
+#: accounts/templates/accounts/profile.html:13 templates/_form.html:14
+msgid "Save"
+msgstr "保存"
+
+#: accounts/views.py:28
+msgid "Login"
+msgstr "ログイン"
+
+#: reactions/models.py:11
+msgid "title"
+msgstr "タイトル"
+
+#: reactions/models.py:12
+msgid "contents"
+msgstr "内容"
+
+#: reactions/models.py:13
+msgid "score"
+msgstr "スコア"
+
 #: reactor/settings.py:112
 msgid "English"
 msgstr "英語"
@@ -41,3 +61,7 @@ msgstr "英語"
 #: reactor/settings.py:113
 msgid "Japanese"
 msgstr "日本語"
+
+#: topics/forms.py:14
+msgid "Search"
+msgstr "検索"

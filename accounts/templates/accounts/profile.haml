@@ -1,5 +1,5 @@
 {% extends "_layout.html" %}
-{% load bootstrap3 %}
+{% load i18n bootstrap3 %}
 {% block content %}
 .mw-400.margin-center
   %form{action: '', method: 'POST', enctype: 'multipart/form-data'}
@@ -10,7 +10,7 @@
       {% if submit %}
       %button.btn.btn-lg.btn-primary.width-100p {{ submit }}
       {% else %}
-      %button.btn.btn-lg.btn-primary.width-100p Save
+      %button.btn.btn-lg.btn-primary.width-100p {% trans 'Save' %}
       {% endif %}
     {% endbuttons %}
 {% endblock %}
