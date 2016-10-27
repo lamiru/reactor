@@ -60,6 +60,8 @@ def my_reactions(request):
                 my_reactions.filter(topic=reaction.topic, target__isnull=False)
             topic_list.append(reaction.topic)
 
+    topic_list.sort(key=lambda item: item.pk, reverse=True)
+
     return render(request, 'accounts/my_reactions.html', {
         'topic_list': topic_list,
     })
