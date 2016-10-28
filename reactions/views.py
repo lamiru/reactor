@@ -16,17 +16,17 @@ def detail(request, pk):
 
     tree = current_reaction.get_tree()
     children = current_reaction.get_children()
-    brothers = current_reaction.get_brothers()
-    parents = current_reaction.get_parents()
-    if parents is None:
-        lists = [brothers, children, [],]
+    current_generation = current_reaction.get_current_generation()
+    parents_generation = current_reaction.get_parents_generation()
+    if parents_generation is None:
+        lists = [current_generation, children, [],]
     else:
-        lists = [parents, brothers, children,]
+        lists = [parents_generation, current_generation, children,]
 
     try:
-        rate = Rate.objects.get(user=request.user, reaction=current_reaction).rate
+        rating = Rating.objects.get(user=request.user, reaction=current_reaction).rating
     except ObjectDoesNotExist:
-        rate = None
+        rating = None
 
     form = ReactionForm()
 
@@ -34,7 +34,7 @@ def detail(request, pk):
         'tree': tree,
         'lists': lists,
         'current_reaction': current_reaction,
-        'rate': rate,
+        'rating': rating,
         'form': form,
     })
 
@@ -60,40 +60,40 @@ def ranking(request, pk):
 
 
 @login_required
-def rate_good(request, pk):
+def rating_good(request, pk):
     if request.method == 'POST':
         reaction = get_object_or_404(Reaction, pk=pk)
         topic = reaction.topic
         try:
-            Rate.objects.create(user=request.user, topic=topic, reaction=reaction, rate='G')
+            Rating.objects.create(user=request.user, topic=topic, reaction=reaction, rating='G')
             reaction.score += 1
             reaction.save()
         except IntegrityError:
-            rate = Rate.objects.get(user=request.user, reaction=reaction)
-            if rate.rate == 'P':
-                rate.rate = 'G'
+            rating = Rating.objects.get(user=request.user, reaction=reaction)
+            if rating.rating == 'P':
+                rating.rating = 'G'
                 reaction.score += 1
                 reaction.save()
-                rate.save()
+                rating.save()
         return redirect('reactions:detail', pk)
     else:
         return Http404()
 
 
 @login_required
-def rate_pass(request, pk):
+def rating_pass(request, pk):
     if request.method == 'POST':
         reaction = get_object_or_404(Reaction, pk=pk)
         topic = reaction.topic
         try:
-            Rate.objects.create(user=request.user, topic=topic, reaction=reaction, rate='P')
+            Rating.objects.create(user=request.user, topic=topic, reaction=reaction, rating='P')
         except IntegrityError:
-            rate = Rate.objects.get(user=request.user, reaction=reaction)
-            if rate.rate == 'G':
-                rate.rate = 'P'
+            rating = Rating.objects.get(user=request.user, reaction=reaction)
+            if rating.rating == 'G':
+                rating.rating = 'P'
                 reaction.score -= 1
                 reaction.save()
-                rate.save()
+                rating.save()
         return redirect('reactions:detail', pk)
     else:
         return Http404()
@@ -105,7 +105,7 @@ def reaction_new(request, pk):
         form = ReactionForm(request.POST)
         if form.is_valid():
             target = get_object_or_404(Reaction, pk=pk)
-            get_object_or_404(Rate, user=request.user, reaction=pk)
+            get_object_or_404(Rating, user=request.user, reaction=pk)
             reaction = form.save(commit=False)
             reaction.actor = request.user
             reaction.target = target

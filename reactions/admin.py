@@ -12,10 +12,10 @@ class ReactionAdmin(admin.ModelAdmin):
 admin.site.register(Reaction, ReactionAdmin)
 
 
-class RateAdmin(admin.ModelAdmin):
+class RatingAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'user', 'topic', 'reaction', 'rate',
+        'id', 'user', 'topic', 'reaction', 'rating',
         'created_at', 'updated_at',
     )
 
-admin.site.register(Rate, RateAdmin)
+admin.site.register(Rating, RatingAdmin)

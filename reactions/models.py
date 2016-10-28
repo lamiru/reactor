@@ -31,15 +31,15 @@ class Reaction(models.Model):
                 reaction_tree.append(reaction)
         return reaction_tree
 
-    def get_brothers(self):
+    def get_current_generation(self):
         if self.target is not None:
             return self.target.target_reactions.all()
         else:
             return Reaction.objects.filter(target=None)
 
-    def get_parents(self):
+    def get_parents_generation(self):
         if self.target is not None:
-            return self.target.get_brothers()
+            return self.target.get_current_generation()
         else:
             return None
 
@@ -50,15 +50,15 @@ class Reaction(models.Model):
         return Reaction.objects.filter(topic=self.topic)
 
 
-class Rate(models.Model):
+class Rating(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True)
-    topic = models.ForeignKey(Reaction, db_index=True, related_name='topic_rates')
-    reaction = models.ForeignKey(Reaction, db_index=True, related_name='reaction_rates')
-    RATE_CHOICES = (
+    topic = models.ForeignKey(Reaction, db_index=True, related_name='topic_ratings')
+    reaction = models.ForeignKey(Reaction, db_index=True, related_name='reaction_ratings')
+    RATING_CHOICES = (
         ('G', 'Good'),
         ('P', 'Pass'),
     )
-    rate = models.CharField(max_length=1, choices=RATE_CHOICES)
+    rating = models.CharField(max_length=1, choices=RATING_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

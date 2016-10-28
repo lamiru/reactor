@@ -99,7 +99,7 @@
             {% csrf_token %}
             %input{type: 'hidden', name: 'next', value: '{{ next }}'}
             .pt-10
-              {% if rate == 'G' %}
+              {% if rating == 'G' %}
               %button.btn.btn-primary.width-100p Good
               {% else %}
               %button.btn.btn-white.width-100p Good
@@ -109,12 +109,12 @@
             {% csrf_token %}
             %input{type: 'hidden', name: 'next', value: '{{ next }}'}
             .pt-10
-              {% if rate == 'P' %}
+              {% if rating == 'P' %}
               %button.btn.btn-primary.width-100p Pass
               {% else %}
               %button.btn.btn-white.width-100p Pass
               {% endif %}
-      {% if rate %}
+      {% if rating %}
         %form.mt-20{action: '{% url "reactions:reaction_new" current_reaction.pk %}', method: 'POST', enctype: 'multipart/form-data'}
           {% csrf_token %}
           %input{type: 'hidden', name: 'next', value: '{{ next }}'}
