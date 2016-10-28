@@ -1,5 +1,5 @@
 {% extends "_layout.html" %}
-{% load bootstrap3 thumbnail staticfiles %}
+{% load bootstrap3 %}
 {% block css %}
 {% endblock %}
 {% block content %}
@@ -13,22 +13,9 @@
       .panel.panel-default
         .panel-heading
           .pull-left
-            %table
-              %tbody
-                %tr
-                  %td
-                    {% if topic.actor.user_profile.photo %}
-                    {% thumbnail topic.actor.user_profile.photo "45x45" crop="center" as im %}
-                    %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
-                    {% endthumbnail %}
-                    {% else %}
-                    %img{src: '{% static "images/pica.jpg" %}', width: '45', height: '45'}
-                    {% endif %}
-                  %td
-                    %div {{ topic.actor.username }}
-                    %div {{ topic.created_at }}
+            {% include "_user.html" %}
           .pull-right
-            %h5 Topic Score {{ topic.topic_score }}
+            .pt-10 Topic Score {{ topic.topic_score }}
           .clearfix
         .panel-body
           %a{href: '{% url "reactions:detail" topic.pk %}'}
@@ -37,12 +24,12 @@
 {% endfor %}
 .container
   .row
-    %form{action: '{% url "topics:new" %}', method: 'POST', enctype: 'multipart/form-data'}
+    %form.topic-new-form{action: '{% url "topics:new" %}', method: 'POST', enctype: 'multipart/form-data'}
       {% csrf_token %}
-      .col-xs-8
+      .col-xs-10
         {% bootstrap_field tform.title show_label=False %}
         {% bootstrap_field tform.contents show_label=False %}
-      .col-xs-4
+      .col-xs-2.button-wrapper
         {% buttons %}
         %button.btn.btn-primary.width-100p Create Topic
         {% endbuttons %}
