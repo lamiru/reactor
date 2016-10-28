@@ -22,6 +22,7 @@
             %strong {{ topic.title }}
           %p {{ topic.contents }}
 {% endfor %}
+{% if user.is_authenticated %}
 .container
   .row
     %form.topic-new-form{action: '{% url "topics:new" %}', method: 'POST', enctype: 'multipart/form-data'}
@@ -33,4 +34,5 @@
         {% buttons %}
         %button.btn.btn-primary.width-100p Create Topic
         {% endbuttons %}
+{% endif %}
 {% endblock %}
