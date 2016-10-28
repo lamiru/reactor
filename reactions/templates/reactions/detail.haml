@@ -76,17 +76,16 @@
               %td
                 {% if current_reaction.actor.user_profile.photo %}
                 {% thumbnail current_reaction.actor.user_profile.photo "45x45" crop="center" as im %}
-                %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+                %img.mr-10{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
                 {% endthumbnail %}
                 {% else %}
-                %img{src: '{% static "images/pica.jpg" %}', width: '45', height: '45'}
+                %img.mr-10{src: '{% static "images/pica.jpg" %}', width: '45', height: '45'}
                 {% endif %}
               %td
                 %div {{ current_reaction.actor.username }}
                 %div {{ current_reaction.created_at }}
       .pull-right
-        %h5
-          %strong {{ current_reaction.score }}
+        .pt-10 {{ current_reaction.score }}
       .clearfix
       {% if current_reaction.deleted == True %}
       %h3 This reaction is deleted.
