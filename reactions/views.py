@@ -6,6 +6,7 @@ from django.db import IntegrityError
 from django.db.models import Sum
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
+from helpers.score import calculate_score
 from .forms import *
 from .models import *
 
@@ -65,16 +66,14 @@ def rating_good(request, pk):
         reaction = get_object_or_404(Reaction, pk=pk)
         topic = reaction.topic
         try:
-            Rating.objects.create(user=request.user, topic=topic, reaction=reaction, rating='G')
-            reaction.score += 1
-            reaction.save()
-        except IntegrityError:
             rating = Rating.objects.get(user=request.user, reaction=reaction)
             if rating.rating == 'P':
                 rating.rating = 'G'
-                reaction.score += 1
-                reaction.save()
                 rating.save()
+                calculate_score()
+        except ObjectDoesNotExist:
+            Rating.objects.create(user=request.user, topic=topic, reaction=reaction, rating='G')
+            calculate_score()
         return redirect('reactions:detail', pk)
     else:
         return Http404()
@@ -86,14 +85,14 @@ def rating_pass(request, pk):
         reaction = get_object_or_404(Reaction, pk=pk)
         topic = reaction.topic
         try:
-            Rating.objects.create(user=request.user, topic=topic, reaction=reaction, rating='P')
-        except IntegrityError:
             rating = Rating.objects.get(user=request.user, reaction=reaction)
             if rating.rating == 'G':
                 rating.rating = 'P'
-                reaction.score -= 1
-                reaction.save()
                 rating.save()
+                calculate_score()
+        except ObjectDoesNotExist:
+            Rating.objects.create(user=request.user, topic=topic, reaction=reaction, rating='P')
+            calculate_score()
         return redirect('reactions:detail', pk)
     else:
         return Http404()
