@@ -12,6 +12,8 @@
 .container
   .row
     .col-xs-9
+      .mb-10
+        .strong Tree
       .row
         {% for reaction in tree reversed %}
         .col-xs-3
@@ -28,43 +30,42 @@
       .row
         .pull-right
           %a#ranking-btn.btn.btn-sm.btn-warning{url: '{% url "reactions:ranking" current_reaction.topic %}','data-toggle': 'modal', 'data-target': '.ranking-modal'} Ranking
+      .mb-10
+        .strong Family
       .row
         {% for list in lists %}
         .col-xs-4
-          %h3 List {{ forloop.counter0 }}
           {% for reaction in list %}
             {% if reaction in tree %}
-            .panel.panel-info
-              .panel-heading
-                {% if reaction.actor.user_profile.photo %}
-                {% thumbnail reaction.actor.user_profile.photo "30x30" crop="center" as im %}
-                %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
-                {% endthumbnail %}
+            .well.well-sm.label-info
+              {% if reaction.actor.user_profile.photo %}
+              {% thumbnail reaction.actor.user_profile.photo "30x30" crop="center" as im %}
+              %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+              {% endthumbnail %}
+              {% else %}
+              %img{src: '{% static "images/pica.jpg" %}', width: '30', height: '30'}
+              {% endif %}
+              %a{href: '{% url "reactions:detail" reaction.pk %}'}
+                {% if reaction.deleted == True %}
+                %span This reaction is deleted.
                 {% else %}
-                %img{src: '{% static "images/pica.jpg" %}', width: '30', height: '30'}
+                %span {{ reaction.title }}
                 {% endif %}
-                %a{href: '{% url "reactions:detail" reaction.pk %}'}
-                  {% if reaction.deleted == True %}
-                  %span This reaction is deleted.
-                  {% else %}
-                  %span {{ reaction.title }}
-                  {% endif %}
             {% else %}
-            .panel.panel-default
-              .panel-heading
-                {% if reaction.actor.user_profile.photo %}
-                {% thumbnail reaction.actor.user_profile.photo "30x30" crop="center" as im %}
-                %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
-                {% endthumbnail %}
+            .well.well-sm
+              {% if reaction.actor.user_profile.photo %}
+              {% thumbnail reaction.actor.user_profile.photo "30x30" crop="center" as im %}
+              %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+              {% endthumbnail %}
+              {% else %}
+              %img{src: '{% static "images/pica.jpg" %}', width: '30', height: '30'}
+              {% endif %}
+              %a{href: '{% url "reactions:detail" reaction.pk %}'}
+                {% if reaction.deleted == True %}
+                %span This reaction is deleted.
                 {% else %}
-                %img{src: '{% static "images/pica.jpg" %}', width: '30', height: '30'}
+                %span {{ reaction.title }}
                 {% endif %}
-                %a{href: '{% url "reactions:detail" reaction.pk %}'}
-                  {% if reaction.deleted == True %}
-                  %span This reaction is deleted.
-                  {% else %}
-                  %span {{ reaction.title }}
-                  {% endif %}
             {% endif %}
           {% endfor %}
         {% endfor %}

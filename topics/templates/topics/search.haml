@@ -11,19 +11,19 @@
       %h4 Search Results for
         %strong {{ request.GET.q }}
   {% for topic in topic_list %}
-  .row
-    .col-xs-12
-      .panel.panel-default
-        .panel-heading
-          .pull-left
-            {% include "_user.html" %}
-          .pull-right
-            .pt-10 Topic Score {{ topic.topic_score }}
-          .clearfix
-        .panel-body
-          %a{href: '{% url "reactions:detail" topic.pk %}'}
-            %strong {{ topic.title }}
-          %p {{ topic.contents }}
+    .row
+      .col-xs-12
+        .panel.panel-default
+          .panel-heading
+            .pull-left
+              {% include "_user.html" %}
+            .pull-right
+              .large.pt-10 Topic Score {{ topic.topic_score }}
+            .clearfix
+          .panel-body
+            %a{href: '{% url "reactions:detail" topic.pk %}'}
+              .strong {{ topic.title }}
+            %div {{ topic.contents }}
   {% endfor %}
   {% if not topic_list %}
   .row

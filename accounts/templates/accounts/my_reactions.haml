@@ -10,11 +10,11 @@
           .pull-left
             {% include "_user.html" %}
           .pull-right
-            .pt-10 Topic Score {{ topic.topic_score }}
+            .large.pt-10 Topic Score {{ topic.topic_score }}
           .clearfix
         .panel-body
           %a{href: '{% url "reactions:detail" topic.pk %}'}
-            %strong {{ topic.title }}
+            .strong {{ topic.title }}
           %div {{ topic.contents }}
         .panel-footer
           .row
