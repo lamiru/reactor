@@ -96,10 +96,10 @@
       {% endif %}
       {% if current_reaction.url %}
       .thumbnail.well
-        #thumbnail-url-image{style: 'background-image: url("{{ current_reaction.url_image }}")'}
-        %a#thumbnail-url{href: '{{ current_reaction.url }}', target: '_blank'}
-          %span#thumbnail-url-title {{ current_reaction.url_title }}
-        #thumbnail-url-description {{ current_reaction.url_description }}
+        .thumbnail-url-image{style: 'background-image: url("{{ current_reaction.url_image }}")'}
+        %a.thumbnail-url{href: '{{ current_reaction.url }}', target: '_blank'}
+          %span.thumbnail-url-title {{ current_reaction.url_title }}
+        .thumbnail-url-description {{ current_reaction.url_description }}
       {% endif %}
       .row
         .col-xs-6
@@ -128,10 +128,12 @@
           %input{type: 'hidden', name: 'next', value: '{{ next }}'}
           {% bootstrap_form form show_label=False %}
           .thumbnail.well
-            #thumbnail-url-image
-            %a#thumbnail-url{target: '_blank'}
-              %span#thumbnail-url-title
-            #thumbnail-url-description
+            .thumbnail-close
+              {% bootstrap_icon 'remove' %}
+            .thumbnail-url-image
+            %a.thumbnail-url{target: '_blank'}
+              %span.thumbnail-url-title
+            .thumbnail-url-description
           {% bootstrap_button "Save" button_class="btn-primary width-100p" %}
       {% endif %}
 {% endblock %}
@@ -153,13 +155,20 @@
       $('#id_url_description').val(data.description);
       $('#id_url_image').val(data.image);
       if(data.image) {
-        $('form #thumbnail-url-image').css('background-image', 'url(' + data.image + ')');
-        $('form #thumbnail-url-image').show();
+        $('form .thumbnail-url-image').css('background-image', 'url(' + data.image + ')');
+        $('form .thumbnail-url-image').show();
       }
-      $('form #thumbnail-url').attr('href', data.url);
-      $('form #thumbnail-url-title').html(data.title);
-      $('form #thumbnail-url-description').html(data.description);
+      $('form .thumbnail-url').attr('href', data.url);
+      $('form .thumbnail-url-title').html(data.title);
+      $('form .thumbnail-url-description').html(data.description);
       $('form .thumbnail').show();
     }
+  });
+  $('.thumbnail-close').click(function(){
+    $('#id_url').val('');
+    $('#id_url_title').val('');
+    $('#id_url_description').val('');
+    $('#id_url_image').val('');
+    $('form .thumbnail').hide();
   });
 {% endblock %}
