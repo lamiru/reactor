@@ -9,3 +9,9 @@ class ReactionForm(forms.ModelForm):
             'title', 'contents',
             'url', 'url_title', 'url_description', 'url_image'
         )
+        widgets = {
+            'url': forms.HiddenInput(),
+            'url_title': forms.HiddenInput(),
+            'url_description': forms.HiddenInput(),
+            'url_image': forms.HiddenInput(),
+        }
