@@ -2,16 +2,17 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect
 from reactions.models import Reaction
+from reactions.forms import ReactionForm
 from .forms import *
 
 
 def index(request):
     topic_list = Reaction.objects.filter(target=None, deleted=False).order_by('-id')
-    tform = TopicForm()
+    rform = ReactionForm()
     sform = SearchForm()
     return render(request, 'topics/index.html', {
         'topic_list': topic_list,
-        'tform': tform,
+        'rform': rform,
         'sform': sform,
     })
 
@@ -39,7 +40,7 @@ def search(request):
 @login_required
 def new(request):
     if request.method == 'POST':
-        form = TopicForm(request.POST)
+        form = ReactionForm(request.POST)
         if form.is_valid():
             topic = form.save(commit=False)
             topic.actor = request.user

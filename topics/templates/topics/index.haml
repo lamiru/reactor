@@ -28,11 +28,44 @@
     %form.topic-new-form{action: '{% url "topics:new" %}', method: 'POST', enctype: 'multipart/form-data'}
       {% csrf_token %}
       .col-xs-10
-        {% bootstrap_field tform.title show_label=False %}
-        {% bootstrap_field tform.contents show_label=False %}
+        {% bootstrap_form rform show_label=False %}
       .col-xs-2.button-wrapper
         {% buttons %}
         %button.btn.btn-primary.width-100p Create Topic
         {% endbuttons %}
+      .col-xs-12
+        .thumbnail.well
+          .thumbnail-close
+            {% bootstrap_icon 'remove' %}
+          .thumbnail-url-image
+          %a.thumbnail-url{target: '_blank'}
+            %span.thumbnail-url-title
+          .thumbnail-url-description
 {% endif %}
+{% endblock %}
+{% block javascript %}
+:javascript
+  $('textarea').liveUrl({
+    success: function(data){
+      $('#id_url').val(data.url);
+      $('#id_url_title').val(data.title);
+      $('#id_url_description').val(data.description);
+      $('#id_url_image').val(data.image);
+      if(data.image) {
+        $('form .thumbnail-url-image').css('background-image', 'url(' + data.image + ')');
+        $('form .thumbnail-url-image').show();
+      }
+      $('form .thumbnail-url').attr('href', data.url);
+      $('form .thumbnail-url-title').html(data.title);
+      $('form .thumbnail-url-description').html(data.description);
+      $('form .thumbnail').show();
+    }
+  });
+  $('.thumbnail-close').click(function(){
+    $('#id_url').val('');
+    $('#id_url_title').val('');
+    $('#id_url_description').val('');
+    $('#id_url_image').val('');
+    $('form .thumbnail').hide();
+  });
 {% endblock %}
