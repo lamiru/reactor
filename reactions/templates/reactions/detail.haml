@@ -136,4 +136,12 @@
       $('#ranking-table-wrapper').html(data);
     });
   });
+  $('textarea').liveUrl({
+    success: function(data){
+      $('#id_url').val(data.url);
+      $('#id_url_title').val(data.title);
+      $('#id_url_description').val(data.description);
+      $('#id_url_image').val(data.image);
+    }
+  });
 {% endblock %}
