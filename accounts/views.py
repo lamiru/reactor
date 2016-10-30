@@ -83,6 +83,7 @@ def profile(request):
     return render(request, 'accounts/profile.html', {
         'uform': uform,
         'pform': pform,
+        'submit': _('Save')
     })
 
 

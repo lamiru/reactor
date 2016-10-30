@@ -6,11 +6,5 @@
     {% csrf_token %}
     {% bootstrap_form uform %}
     {% bootstrap_form pform %}
-    {% buttons %}
-      {% if submit %}
-      %button.btn.btn-lg.btn-primary.width-100p {{ submit }}
-      {% else %}
-      %button.btn.btn-lg.btn-primary.width-100p {% trans 'Save' %}
-      {% endif %}
-    {% endbuttons %}
+    {% bootstrap_button submit button_class="btn-primary width-100p" %}
 {% endblock %}
