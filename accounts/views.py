@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
@@ -6,8 +8,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Q
 from django.shortcuts import render, redirect
-from django.utils.translation import ugettext_lazy as _
 from django.views.generic import FormView
+from languages import trans as _
 from .forms import *
 from .models import *
 from reactions.models import Reaction
@@ -26,7 +28,7 @@ class LoginView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(LoginView, self).get_context_data(**kwargs)
-        context['submit'] = _('Login')
+        context['submit'] = _('login')
         context['next'] = self.request.GET.get('next') and self.request.GET.get('next') or ''
         return context
 
@@ -42,6 +44,8 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             UserProfile.objects.create(user=user)
+            auth_login(request, user)
+            messages.info(request, "Thanks for registering. You are now logged in.")
             next_url = request.GET.get('next', 'accounts:index')
             return redirect(next_url)
     else:
@@ -93,11 +97,10 @@ def profile(request):
     return render(request, 'accounts/profile.html', {
         'uform': uform,
         'pform': pform,
-        'submit': _('Save')
+        'submit': _('save')
     })
 
 
 @login_required
 def index(request):
-    return render(request, 'accounts/index.html', {
-    })
+    return redirect('topics:index')

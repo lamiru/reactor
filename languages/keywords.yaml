@@ -1,0 +1,14 @@
+ja:
+  save: 保存
+  login: ログイン
+  logout: ログアウト
+  search: 検索
+  # models
+  username: ユーザー名
+  email: Eメール
+  title: タイトル
+  contents: 内容
+  score: スコア
+  # languages
+  english: 英語
+  japanese: 日本語

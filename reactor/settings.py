@@ -107,11 +107,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ja'
 
-from django.utils.translation import ugettext_lazy as _
+from languages import trans as _
 
 LANGUAGES = [
-  ('en', _('English')),
-  ('ja', _('Japanese')),
+  ('en', _('english')),
+  ('ja', _('japanese')),
 ]
 
 LOCALE_PATHS = (

@@ -1,20 +1,23 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.utils.translation import ugettext, ugettext_lazy as _
+from languages import trans as _
 from .models import *
 
 
 class SignupForm(UserCreationForm):
     username = forms.RegexField(
-            label=_("Username"), max_length=20,
-            regex=r'^[\w_]+$',
-            help_text = _("Required. 20 characters or fewer. Letters, digits and _ only."),
-            error_messages = {
-                'invalid': _("This value may contain only letters, numbers and _ characters.")
-            }
-        )
-    email = forms.EmailField()
+        label=_('username'),
+        max_length=20,
+        regex=r'^[\w_]+$',
+        help_text = "Required. 20 characters or fewer. Letters, digits and _ only.",
+        error_messages = {
+            'invalid': "This value may contain only letters, numbers and _ characters."
+        }
+    )
+    email = forms.EmailField(
+        label=_('email'),
+    )
 
     def clean_email(self):
         email = self.cleaned_data.get('email').strip()
@@ -32,6 +35,9 @@ class SignupForm(UserCreationForm):
 
 
 class UserForm(forms.ModelForm):
+    email = forms.EmailField(
+        label=_('email'),
+    )
     class Meta:
         model = User
         fields = ('email', 'last_name', 'first_name',)
