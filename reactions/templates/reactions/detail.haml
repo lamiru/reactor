@@ -92,7 +92,7 @@
       %h3 This reaction is deleted.
       {% else %}
       %h3 {{ current_reaction.title }}
-      %p {{ current_reaction.contents }}
+      %p {{ current_reaction.contents|linebreaks }}
       {% endif %}
       {% if current_reaction.url %}
       .thumbnail.well

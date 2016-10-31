@@ -15,7 +15,7 @@
         .panel-body
           %a{href: '{% url "reactions:detail" topic.pk %}'}
             .strong {{ topic.title }}
-          %div {{ topic.contents }}
+          %div {{ topic.contents|linebreaks }}
         .panel-footer
           .row
             {% for r in topic.my_reactions.all %}
