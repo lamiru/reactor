@@ -2,6 +2,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Q
 from django.shortcuts import render, redirect
@@ -53,14 +54,23 @@ def signup(request):
 @login_required
 def my_reactions(request):
     my_reactions = Reaction.objects.filter(actor=request.user)
-    topic_list = []
+    topics = []
     for reaction in my_reactions:
-        if reaction.topic not in topic_list:
+        if reaction.topic not in topics:
             reaction.topic.my_reactions = \
                 my_reactions.filter(topic=reaction.topic, target__isnull=False)
-            topic_list.append(reaction.topic)
+            topics.append(reaction.topic)
 
-    topic_list.sort(key=lambda item: item.pk, reverse=True)
+    topics.sort(key=lambda item: item.pk, reverse=True)
+
+    paginator = Paginator(topics, 10)
+    page = request.GET.get('page')
+    try:
+        topic_list = paginator.page(page)
+    except PageNotAnInteger:
+        topic_list = paginator.page(1)
+    except EmptyPage:
+        topic_list = paginator.page(paginator.num_pages)
 
     return render(request, 'accounts/my_reactions.html', {
         'topic_list': topic_list,

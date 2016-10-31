@@ -1,9 +1,12 @@
 {% extends "_layout.html" %}
-{% load bootstrap3 %}
+{% load bootstrap3 bootstrap_pagination %}
 {% block css %}
 {% endblock %}
 {% block content %}
 {% include "topics/_searchform.html" %}
+.container
+  .text-center.mt-m20
+    {% bootstrap_paginate topic_list range=10 show_prev_next="false" show_first_last="true" %}
 {% include "topics/_topiclist.html" %}
 {% if user.is_authenticated %}
 .container

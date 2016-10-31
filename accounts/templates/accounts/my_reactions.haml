@@ -1,6 +1,9 @@
 {% extends "_layout.html" %}
-{% load bootstrap3 staticfiles thumbnail %}
+{% load bootstrap3 bootstrap_pagination staticfiles thumbnail %}
 {% block content %}
+.container
+  .text-center.mt-m20
+    {% bootstrap_paginate topic_list range=10 show_prev_next="false" show_first_last="true" %}
 {% for topic in topic_list %}
 .container
   .row

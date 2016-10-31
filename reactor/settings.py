@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'compressor',
+    'bootstrap_pagination',
     'bootstrap3',
     'sorl.thumbnail',
     'debug_toolbar',

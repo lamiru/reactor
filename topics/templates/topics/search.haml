@@ -1,9 +1,12 @@
 {% extends "_layout.html" %}
-{% load bootstrap3 thumbnail staticfiles %}
+{% load bootstrap3 bootstrap_pagination %}
 {% block css %}
 {% endblock %}
 {% block content %}
 {% include "topics/_searchform.html" %}
+.container
+  .text-center.mt-m20
+    {% bootstrap_paginate topic_list range=10 %}
 .container
   .row
     .col-xs-12

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-30 12:42+0000\n"
+"POT-Creation-Date: 2016-10-31 03:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,11 +34,11 @@ msgstr ""
 msgid "Hello World"
 msgstr "ハローワールド"
 
-#: accounts/views.py:28
+#: accounts/views.py:29
 msgid "Login"
 msgstr "ログイン"
 
-#: accounts/views.py:86 templates/_form.html:14
+#: accounts/views.py:96 templates/_form.html:14
 msgid "Save"
 msgstr "保存"
 
@@ -54,11 +54,11 @@ msgstr "内容"
 msgid "score"
 msgstr "スコア"
 
-#: reactor/settings.py:112
+#: reactor/settings.py:113
 msgid "English"
 msgstr "英語"
 
-#: reactor/settings.py:113
+#: reactor/settings.py:114
 msgid "Japanese"
 msgstr "日本語"
 

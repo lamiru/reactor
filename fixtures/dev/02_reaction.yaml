@@ -104,3 +104,188 @@
     contents: content11 test
     created_at: 2000-01-01T00:00:00+00:00
     updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 12
+  fields:
+    actor: 2
+    topic: 12
+    title: title12
+    contents: content12 日本語
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 13
+  fields:
+    actor: 3
+    topic: 12
+    target: 12
+    title: タイトル13
+    contents: 内容13
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 14
+  fields:
+    actor: 4
+    topic: 12
+    target: 12
+    title: タイトル14
+    contents: 内容14
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 15
+  fields:
+    actor: 1
+    topic: 15
+    title: title15
+    contents: content15
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 16
+  fields:
+    actor: 2
+    topic: 16
+    title: title16
+    contents: content16
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 17
+  fields:
+    actor: 2
+    topic: 16
+    target: 16
+    title: title17
+    contents: content17
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 18
+  fields:
+    actor: 3
+    topic: 16
+    target: 17
+    title: title18
+    contents: content18
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 19
+  fields:
+    actor: 4
+    topic: 16
+    target: 17
+    title: title19
+    contents: content19
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 20
+  fields:
+    actor: 2
+    topic: 20
+    title: title20
+    contents: content20
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 21
+  fields:
+    actor: 1
+    topic: 21
+    title: タイトル21
+    contents: 内容21
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 22
+  fields:
+    actor: 1
+    topic: 22
+    title: タイトル22
+    contents: 内容22
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 23
+  fields:
+    actor: 1
+    topic: 23
+    title: タイトル23
+    contents: 内容23
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 24
+  fields:
+    actor: 1
+    topic: 24
+    title: タイトル24
+    contents: 内容24
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 25
+  fields:
+    actor: 1
+    topic: 25
+    title: タイトル25
+    contents: 内容25
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 26
+  fields:
+    actor: 1
+    topic: 26
+    title: 타이틀26
+    contents: 내용26
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 27
+  fields:
+    actor: 1
+    topic: 27
+    title: 타이틀27
+    contents: 내용27
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 28
+  fields:
+    actor: 1
+    topic: 28
+    title: 타이틀28
+    contents: 내용28
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 29
+  fields:
+    actor: 1
+    topic: 29
+    title: 타이틀29
+    contents: 내용29
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 30
+  fields:
+    actor: 1
+    topic: 30
+    title: 타이틀30
+    contents: 내용30
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
+- model: reactions.reaction
+  pk: 31
+  fields:
+    actor: 1
+    topic: 31
+    title: 타이틀31
+    contents: 내용31
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00

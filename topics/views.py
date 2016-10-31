@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import Http404
 from django.shortcuts import render, redirect
 from reactions.models import Reaction
@@ -7,9 +8,19 @@ from .forms import *
 
 
 def index(request):
-    topic_list = Reaction.objects.filter(target=None, deleted=False).order_by('-id')
+    topics = Reaction.objects.filter(target=None, deleted=False).order_by('-id')
+    paginator = Paginator(topics, 10)
+    page = request.GET.get('page')
+    try:
+        topic_list = paginator.page(page)
+    except PageNotAnInteger:
+        topic_list = paginator.page(1)
+    except EmptyPage:
+        topic_list = paginator.page(paginator.num_pages)
+
     rform = ReactionForm()
     sform = SearchForm()
+
     return render(request, 'topics/index.html', {
         'topic_list': topic_list,
         'rform': rform,
@@ -28,7 +39,16 @@ def search(request):
     contents_list = Reaction.objects.filter(
         target=None, deleted=False, contents__contains=query
     ).order_by('-id')
-    topic_list = title_list | contents_list
+    topics = title_list | contents_list
+    paginator = Paginator(topics, 10)
+    page = request.GET.get('page')
+    try:
+        topic_list = paginator.page(page)
+    except PageNotAnInteger:
+        topic_list = paginator.page(1)
+    except EmptyPage:
+        topic_list = paginator.page(paginator.num_pages)
+
     sform = SearchForm()
 
     return render(request, 'topics/search.html', {
