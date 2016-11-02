@@ -1,0 +1,21 @@
+#!/bin/bash
+set -e
+source ./.common
+
+sudo su -p <<HERE
+set -e
+source ~/.bash_profile
+
+# Extract project
+rm -rf $PROJECT_DIR
+mkdir $PROJECT_DIR
+tar -xzf /home/ec2-user/$PROJECT_NAME.tar.gz -C $PROJECT_DIR
+
+# Copy files
+yes | cp -rf $PROJECT_DIR/deploy/nginx.conf /etc/nginx
+yes | cp -rf $PROJECT_DIR/deploy/redis.conf /etc
+yes | cp -rf $PROJECT_DIR/deploy/uwsgi.ini /etc/uwsgi
+yes | cp -rf $PROJECT_DIR/deploy/uwsgi /etc/init.d
+yes | cp -rf $PROJECT_DIR/deploy/celeryd.conf /etc/celeryd
+yes | cp -rf $PROJECT_DIR/deploy/celeryd /etc/init.d
+HERE

@@ -75,12 +75,30 @@ WSGI_APPLICATION = 'reactor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+from config import env, secret
+
+if env.ENV == 'dev':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+elif env.ENV == 'stg':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'reactor_database',
+            'USER': 'master',
+            'PASSWORD': secret.STG_MYSQL_PW,
+            'HOST': 'reactor-stg-rds.ckonys5dfsim.ap-northeast-1.rds.amazonaws.com',
+            'PORT': '3306',
+            'OPTIONS': {
+                'sql_mode': 'traditional',
+                'charset': 'utf8mb4',
+            }
+        }
+    }
 
 
 # Password validation
@@ -166,3 +184,8 @@ from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
+
+# Settings for STG
+if env.ENV == 'stg':
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    ALLOWED_HOSTS = ['*']

@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+YUM_PACKAGES='gcc gcc-c++ git nginx openssl-devel zlib-devel bzip2-devel readline-devel sqlite-devel mysql-devel'
+PYENV_ROOT='/opt/pyenv'
+PYTHON_VERSION='3.5.1'
+PROJECT_NAME='reactor'
+WEB_ROOT='/var/www'
+UWSGI_PATH=$PYENV_ROOT'/shims/uwsgi'
+UWSGI_LOG_DIR='/var/log/uwsgi'
+CELERY_LOG_DIR='/var/log/celery'
+CELERY_RUN_DIR='/var/run/celery'
+PROJECT_DIR=$WEB_ROOT'/'$PROJECT_NAME
+SETTINGS_NAMESPACE=$PROJECT_NAME'.settings'

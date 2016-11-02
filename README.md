@@ -1,6 +1,8 @@
 Re:actor
 ===
 
+# Local Environment
+
 ## How to install
 
 #### Repository Setting
@@ -8,9 +10,6 @@ Re:actor
 - `$ virtualenv .packages`
 - `$ source .packages/bin/activate`
 - `$ pip install -r requirements.txt`
-- `$ mkdir config`
-- `$ touch config/env.py`
-- `$ echo "ENV = 'dev'" >> config/env.py`
 
 #### Packages
 
@@ -27,3 +26,12 @@ Re:actor
 ## How to end
 
 - `$ sh dev kill`
+
+
+# AWS Environment
+
+## MySQL
+
+- database : `reactor_database`
+- user : `master`
+- `ALTER DATABASE reactor_database CHARACTER SET utf8 COLLATE utf8_unicode_ci;`

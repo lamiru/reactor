@@ -1,0 +1,69 @@
+#!bin/bash
+set -e
+
+ENV='stg'
+source deploy/.common
+SSH_HOST='reactor-'$ENV'-web'
+
+tar --exclude='db.sqlite3' --exclude='.DS_Store' --exclude='static/CACHE' \
+  --exclude='.git' --exclude='.packages' --exclude='__pycache__' --exclude='media/cache' \
+  --exclude='config/*.py' --exclude='celerybeat-schedule.db' --exclude='dump.rdb' \
+  -czf ~/$PROJECT_NAME.tar.gz .
+
+scp ~/$PROJECT_NAME.tar.gz $SSH_HOST:/home/ec2-user
+rm ~/$PROJECT_NAME.tar.gz
+scp deploy/.common $SSH_HOST:/home/ec2-user
+scp deploy/.secret $SSH_HOST:/home/ec2-user
+
+initialize() {
+  scp deploy/_initialize $SSH_HOST:/home/ec2-user
+  ssh -C $SSH_HOST 'sh /home/ec2-user/_initialize'
+  echo '=============SETUP COMPLETED=============='
+  ssh -C $SSH_HOST 'sh '$PROJECT_DIR'/deploy/_cloudwatch'
+  echo '===========CLOUDWATCH COMPLETED==========='
+  ssh -C $SSH_HOST 'rm /home/ec2-user/_initialize'
+}
+
+release() {
+  scp deploy/_release $SSH_HOST:/home/ec2-user
+  ssh -C $SSH_HOST 'sh /home/ec2-user/_release'
+  echo '============RELEASE COMPLETED============='
+  ssh -C $SSH_HOST 'rm /home/ec2-user/_release'
+}
+
+permission() {
+  scp deploy/_permission $SSH_HOST:/home/ec2-user
+  ssh -C $SSH_HOST 'sh /home/ec2-user/_permission'
+  echo '===========PERMISSION COMPLETED============'
+  ssh -C $SSH_HOST 'rm /home/ec2-user/_permission'
+}
+
+start() {
+  scp config/env_$ENV.py $SSH_HOST:$PROJECT_DIR/config/env.py
+  scp config/secret.py $SSH_HOST:$PROJECT_DIR/config
+  scp deploy/_start $SSH_HOST:/home/ec2-user
+  ssh -C $SSH_HOST 'sh /home/ec2-user/_start'
+  echo '=============SERVICE STARTED=============='
+  ssh -C $SSH_HOST 'rm /home/ec2-user/_start'
+  ssh -C $SSH_HOST 'rm /home/ec2-user/.common'
+  ssh -C $SSH_HOST 'rm /home/ec2-user/.secret'
+  ssh -C $SSH_HOST 'rm /home/ec2-user/'$PROJECT_NAME'.tar.gz'
+}
+
+case "$1" in
+  initialize)
+    initialize
+    permission
+    start
+    ;;
+
+  release)
+    release
+    permission
+    start
+    ;;
+
+  start)
+    start
+    ;;
+esac

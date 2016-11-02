@@ -1,0 +1,26 @@
+#!/bin/bash
+set -e
+source ./.secret
+
+sudo su -p <<HERE
+set -e
+
+# yum packages
+yum -y install perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https
+
+# install cloudwatch monitoring scripts
+cd /opt/aws
+curl http://aws-cloudwatch.s3.amazonaws.com/downloads/CloudWatchMonitoringScripts-1.2.1.zip -O
+unzip CloudWatchMonitoringScripts-1.2.1.zip
+rm -rf CloudWatchMonitoringScripts-1.2.1.zip
+touch /opt/aws/aws-scripts-mon/awscreds.conf
+
+# awscreds
+echo 'AWSAccessKeyId=$CLOUDWATCH_KEYID' >> /opt/aws/aws-scripts-mon/awscreds.conf
+echo 'AWSSecretKey=$CLOUDWATCH_SECRETKEY' >> /opt/aws/aws-scripts-mon/awscreds.conf
+
+# crontab
+echo '*/1 * * * * /opt/aws/aws-scripts-mon/mon-put-instance-data.pl --mem-util --mem-used --mem-avail' >> mycron
+crontab mycron
+rm -rf mycron
+HERE

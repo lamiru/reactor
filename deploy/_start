@@ -1,0 +1,27 @@
+#!/bin/bash
+set -e
+source ./.common
+
+sudo su -p <<HERE
+set -e
+source ~/.bash_profile
+
+# pip
+pip install --upgrade pip
+pip install -r $PROJECT_DIR/requirements.txt
+pip install -r $PROJECT_DIR/requirements-aws.txt
+
+# migrations
+cd $PROJECT_DIR
+python manage.py makemigrations --settings=$SETTINGS_NAMESPACE
+python manage.py makemigrations thumbnail --settings=$SETTINGS_NAMESPACE
+python manage.py migrate --settings=$SETTINGS_NAMESPACE
+python manage.py loaddata fixtures/dev/*.yaml
+python manage.py collectstatic --noinput --settings=$SETTINGS_NAMESPACE
+
+# service restart
+service uwsgi restart
+service nginx restart
+echo 'sleep for 5 seconds...'
+sleep 5
+HERE

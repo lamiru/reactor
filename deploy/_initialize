@@ -1,0 +1,100 @@
+#!/bin/bash
+set -e
+source ./.common
+
+sudo su -p <<HERE
+set -e
+
+# Set locale to C
+echo 'LC_ALL=C' >> /etc/sysconfig/i18n
+export LC_ALL=C
+
+# yum packages
+yum -y update
+yum -y install $YUM_PACKAGES
+
+# redis
+rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+yum -y --enablerepo=remi install redis
+
+# pyenv
+git clone git://github.com/yyuu/pyenv.git $PYENV_ROOT
+HERE
+
+# Set pyenv PATH
+echo 'export PYENV_ROOT="'$PYENV_ROOT'"' | sudo tee -a /root/.bashrc
+echo 'if [ -d "$PYENV_ROOT" ]; then' | sudo tee -a /root/.bashrc
+echo '    export PATH="$PYENV_ROOT/bin:$PATH"' | sudo tee -a /root/.bashrc
+echo '    eval "$(pyenv init -)"' | sudo tee -a /root/.bashrc
+echo 'fi' | sudo tee -a /root/.bashrc
+
+sudo su -p <<HERE
+set -e
+source ~/.bash_profile
+
+# Install python
+export LC_ALL=C
+pyenv install $PYTHON_VERSION
+pyenv global $PYTHON_VERSION
+
+# user www-data
+mkdir -p $PROJECT_DIR
+mkdir $UWSGI_LOG_DIR
+mkdir $CELERY_LOG_DIR
+mkdir $CELERY_RUN_DIR
+useradd www-data
+usermod -a -G www-data ec2-user
+
+# Extract project
+tar -xzf /home/ec2-user/$PROJECT_NAME.tar.gz -C $PROJECT_DIR
+
+# Copy nginx.conf
+cp $PROJECT_DIR/deploy/nginx.conf /etc/nginx
+
+# Copy redis.conf
+cp $PROJECT_DIR/deploy/redis.conf /etc
+
+# Copy uwsgi
+mkdir /etc/uwsgi
+cp $PROJECT_DIR/deploy/uwsgi.ini /etc/uwsgi
+cp $PROJECT_DIR/deploy/uwsgi /etc/init.d
+chmod 755 /etc/init.d/uwsgi
+chown root:root /etc/init.d/uwsgi
+
+# Copy celeryd
+mkdir /etc/celeryd
+cp $PROJECT_DIR/deploy/celeryd.conf /etc/celeryd
+cp $PROJECT_DIR/deploy/celeryd /etc/init.d
+chmod 755 /etc/init.d/celeryd
+chown root:root /etc/init.d/celeryd
+
+# directory permission
+chown -R www-data:www-data $UWSGI_LOG_DIR
+chmod 2775 $UWSGI_LOG_DIR
+chown -R www-data:www-data $CELERY_LOG_DIR
+chmod 2775 $CELERY_LOG_DIR
+chown -R www-data:www-data $CELERY_RUN_DIR
+chmod 2775 $CELERY_RUN_DIR
+
+# celery log rotation
+echo '/var/log/celery/*log {' >> /etc/logrotate.d/celery
+echo '    create 0644 www-data www-data' >> /etc/logrotate.d/celery
+echo '    daily' >> /etc/logrotate.d/celery
+echo '    rotate 10' >> /etc/logrotate.d/celery
+echo '    missingok' >> /etc/logrotate.d/celery
+echo '    notifempty' >> /etc/logrotate.d/celery
+echo '    compress' >> /etc/logrotate.d/celery
+echo '    sharedscripts' >> /etc/logrotate.d/celery
+echo '}' >> /etc/logrotate.d/celery
+
+# uwsgi log rotation
+echo '/var/log/uwsgi/*log {' >> /etc/logrotate.d/uwsgi
+echo '    create 0644 www-data www-data' >> /etc/logrotate.d/uwsgi
+echo '    daily' >> /etc/logrotate.d/uwsgi
+echo '    rotate 10' >> /etc/logrotate.d/uwsgi
+echo '    missingok' >> /etc/logrotate.d/uwsgi
+echo '    notifempty' >> /etc/logrotate.d/uwsgi
+echo '    compress' >> /etc/logrotate.d/uwsgi
+echo '    sharedscripts' >> /etc/logrotate.d/uwsgi
+echo '}' >> /etc/logrotate.d/uwsgi
+HERE

@@ -2,7 +2,8 @@
 *.html
 *.mo
 /.packages
-/config/env.py
-/static/CACHE
+/config/secret.py
+/deploy/.secret
 /media
+/static/CACHE
 /db.sqlite3
