@@ -16,15 +16,15 @@
         .strong Tree
       .row
         {% for reaction in tree reversed %}
-        .col-xs-3
-          {% if reaction.author.user_profile.photo %}
-          {% thumbnail reaction.author.user_profile.photo "30x30" crop="center" as im %}
-          %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
-          {% endthumbnail %}
-          {% else %}
-          %img{src: '{% static "images/pica.jpg" %}', width: '30', height: '30'}
-          {% endif %}
-          %a{href: '{% url "reactions:detail" reaction.pk %}'}
+        .col-xs-4
+          %a.reaction-title-active{href: '{% url "reactions:detail" reaction.pk %}'}
+            {% if reaction.author.user_profile.photo %}
+            {% thumbnail reaction.author.user_profile.photo "30x30" crop="center" as im %}
+            %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+            {% endthumbnail %}
+            {% else %}
+            %img{src: '{% static "images/pica.jpg" %}', width: '30', height: '30'}
+            {% endif %}
             %span {{ reaction.title }}
         {% endfor %}
       .row
@@ -37,7 +37,7 @@
         .col-xs-4
           {% for reaction in list %}
             {% if reaction in tree %}
-            .well.well-sm.label-info
+            %a.reaction-title-active{href: '{% url "reactions:detail" reaction.pk %}'}
               {% if reaction.actor.user_profile.photo %}
               {% thumbnail reaction.actor.user_profile.photo "30x30" crop="center" as im %}
               %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
@@ -45,14 +45,13 @@
               {% else %}
               %img{src: '{% static "images/pica.jpg" %}', width: '30', height: '30'}
               {% endif %}
-              %a{href: '{% url "reactions:detail" reaction.pk %}'}
-                {% if reaction.deleted == True %}
-                %span This reaction is deleted.
-                {% else %}
-                %span {{ reaction.title }}
-                {% endif %}
+              {% if reaction.deleted == True %}
+              %span This reaction is deleted.
+              {% else %}
+              %span {{ reaction.title }}
+              {% endif %}
             {% else %}
-            .well.well-sm
+            %a.reaction-title{href: '{% url "reactions:detail" reaction.pk %}'}
               {% if reaction.actor.user_profile.photo %}
               {% thumbnail reaction.actor.user_profile.photo "30x30" crop="center" as im %}
               %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
@@ -60,12 +59,11 @@
               {% else %}
               %img{src: '{% static "images/pica.jpg" %}', width: '30', height: '30'}
               {% endif %}
-              %a{href: '{% url "reactions:detail" reaction.pk %}'}
-                {% if reaction.deleted == True %}
-                %span This reaction is deleted.
-                {% else %}
-                %span {{ reaction.title }}
-                {% endif %}
+              {% if reaction.deleted == True %}
+              %span This reaction is deleted.
+              {% else %}
+              %span {{ reaction.title }}
+              {% endif %}
             {% endif %}
           {% endfor %}
         {% endfor %}

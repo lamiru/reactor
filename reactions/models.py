@@ -39,7 +39,7 @@ class Reaction(models.Model):
         if self.target is not None:
             return self.target.target_reactions.all()
         else:
-            return Reaction.objects.filter(target=None)
+            return Reaction.objects.filter(pk=self.pk)
 
     def get_parents_generation(self):
         if self.target is not None:
