@@ -17,7 +17,7 @@
       .row
         {% for reaction in tree reversed %}
         .col-xs-4
-          %a.reaction-title-active{href: '{% url "reactions:detail" reaction.pk %}'}
+          %a.reaction-title.btn-info{href: '{% url "reactions:detail" reaction.pk %}'}
             {% if reaction.author.user_profile.photo %}
             {% thumbnail reaction.author.user_profile.photo "30x30" crop="center" as im %}
             %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
@@ -28,7 +28,7 @@
             %span {{ reaction.title }}
         {% endfor %}
       .row
-        .pull-right
+        .col-xs-12.text-right
           %a#ranking-btn.btn.btn-sm.btn-warning{url: '{% url "reactions:ranking" current_reaction.topic %}','data-toggle': 'modal', 'data-target': '.ranking-modal'} Ranking
       .mb-10
         .strong Family
@@ -37,7 +37,7 @@
         .col-xs-4
           {% for reaction in list %}
             {% if reaction in tree %}
-            %a.reaction-title-active{href: '{% url "reactions:detail" reaction.pk %}'}
+            %a.reaction-title.btn-info{href: '{% url "reactions:detail" reaction.pk %}'}
               {% if reaction.actor.user_profile.photo %}
               {% thumbnail reaction.actor.user_profile.photo "30x30" crop="center" as im %}
               %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
@@ -51,7 +51,7 @@
               %span {{ reaction.title }}
               {% endif %}
             {% else %}
-            %a.reaction-title{href: '{% url "reactions:detail" reaction.pk %}'}
+            %a.reaction-title.btn-white{href: '{% url "reactions:detail" reaction.pk %}'}
               {% if reaction.actor.user_profile.photo %}
               {% thumbnail reaction.actor.user_profile.photo "30x30" crop="center" as im %}
               %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}

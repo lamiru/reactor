@@ -1,6 +1,10 @@
 html, body
   background-color: #EFEFEF
   font-size: 12px
+  word-break: break-all
+
+p
+  margin-bottom: 0
 
 .panel, .btn, .well
   -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.25)
@@ -9,9 +13,10 @@ html, body
 .btn-white
   color: #555
   background-color: #fff
+  border: 1px solid transparent
   border-color: #ddd
 
-.btn-white:hover, .btn-white:focus, .btn-primary.focus
+.btn-white:hover, .btn-white:focus
   color: #555
   background-color: #eee
   border-color: #ccc
@@ -21,6 +26,3 @@ html, body
   color: #555
   background-color: #ddd
   border-color: #bbb
-
-.label-info
-  background-color: #5bc0de !important

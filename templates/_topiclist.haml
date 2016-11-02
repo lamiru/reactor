@@ -1,0 +1,37 @@
+{% for topic in topic_list %}
+.container
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
+          .pull-left
+            {% include "_user.html" %}
+          .pull-right
+            .large.pt-10 Topic Score {{ topic.topic_score }}
+          .clearfix
+        %a.panel-body.a-block{href: '{% url "reactions:detail" topic.pk %}'}
+          .strong {{ topic.title }}
+          {{ topic.contents|linebreaks }}
+        {% if topic.my_reactions.all %}
+        .panel-footer
+          .row
+            {% for r in topic.my_reactions.all %}
+            .col-xs-3
+              .panel.panel-default.mt-5.mb-5
+                %a.panel-body.a-block{href: '{% url "reactions:detail" r.pk %}'}
+                  .pull-left
+                    .small.font-black {{ r.created_at }}
+                  .pull-right
+                    .small.font-black {{ r.score }}
+                  .clearfix
+                  .strong.ellipsis {{ r.title }}
+            {% endfor %}
+          .clearfix
+        {% endif %}
+{% endfor %}
+{% if not topic_list %}
+.container
+  .row
+    .col-xs-12
+      %h5 There are no results.
+{% endif %}

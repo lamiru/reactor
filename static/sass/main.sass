@@ -14,16 +14,12 @@
   overflow: hidden
   white-space: nowrap
   text-overflow: ellipsis
+  border: 1px solid transparent
   -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.25)
   box-shadow: 1px 1px 1px rgba(0,0,0,0.25)
-  background-color: #fff
 
-.reaction-title:hover
-    text-decoration: none
-
-.reaction-title-active
-  @extend .reaction-title
-  background-color: #5bc0de
+.reaction-title:hover, .reaction-title:focus
+  text-decoration: none
 
 form .thumbnail
   display: none
