@@ -5,7 +5,7 @@ from django.conf import settings
 def trans(keyword):
     try:
         file_path = os.path.join(settings.BASE_DIR, 'languages', 'keywords.yaml')
-        f = open(file_path)
+        f = open(file_path, encoding='utf-8')
         keywords = yaml.safe_load(f)
         f.close()
         sp = keyword.split('.')
