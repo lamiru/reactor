@@ -47,17 +47,19 @@ def detail_s(request, pk):
 
 @login_required
 def ranking(request, pk):
-    topic = get_object_or_404(Reaction, pk=pk)
-    if not topic == topic.topic:
-        return redirect('reactions:ranking', topic.topic)
+    if request.method == 'POST':
+        topic = get_object_or_404(Reaction, pk=pk)
+        if not topic == topic.topic:
+            return redirect('reactions:ranking', topic.topic)
 
-    score_by_actor = User.objects.filter(reaction__topic=topic) \
-        .annotate(score=Sum('reaction__score')) \
-        .order_by('-score')[:10]
+        score_by_actor = User.objects.filter(reaction__topic=topic) \
+            .annotate(score=Sum('reaction__score')) \
+            .order_by('-score')[:10]
 
-    return render(request, 'reactions/ranking.html', {
-        'score_by_actor': score_by_actor,
-    })
+        return render(request, 'reactions/ranking.html', {
+            'score_by_actor': score_by_actor,
+        })
+    raise Http404()
 
 
 @login_required
@@ -75,8 +77,7 @@ def rating_good(request, pk):
             Rating.objects.create(user=request.user, topic=topic, reaction=reaction, rating='G')
             calculate_score()
         return redirect('reactions:detail', pk)
-    else:
-        return Http404()
+    raise Http404()
 
 
 @login_required
@@ -94,8 +95,7 @@ def rating_pass(request, pk):
             Rating.objects.create(user=request.user, topic=topic, reaction=reaction, rating='P')
             calculate_score()
         return redirect('reactions:detail', pk)
-    else:
-        return Http404()
+    raise Http404()
 
 
 @login_required

@@ -140,7 +140,7 @@
   $('#ranking-btn').click(function(){
     var url = $(this).attr('url');
     $.ajax({
-      method: 'GET',
+      method: 'POST',
       url: url,
     }).done(function(data){
       $('#ranking-table-wrapper').html(data);
