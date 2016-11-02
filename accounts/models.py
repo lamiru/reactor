@@ -11,4 +11,4 @@ class UserProfile(models.Model):
         blank=True, null=True,
         upload_to=random_name_with_file_field
     )
-    about = models.TextField(blank=True, null=True)
+    about = models.TextField(max_length=2000, blank=True, null=True)

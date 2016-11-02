@@ -9,7 +9,7 @@ class Reaction(models.Model):
     topic = models.ForeignKey('self', null=True, blank=True, db_index=True, related_name='topic_reactions')
     target = models.ForeignKey('self', null=True, blank=True, db_index=True, related_name='target_reactions')
     title = models.CharField(max_length=100, db_index=True, verbose_name=_('title'))
-    contents = models.TextField(db_index=True, verbose_name=_('contents'))
+    contents = models.TextField(max_length=65535, verbose_name=_('contents'))
     url = models.CharField(max_length=100, null=True, blank=True)
     url_title = models.CharField(max_length=100, null=True, blank=True)
     url_description = models.CharField(max_length=255, null=True, blank=True)
