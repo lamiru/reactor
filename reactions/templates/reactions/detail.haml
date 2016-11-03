@@ -18,8 +18,8 @@
         {% for reaction in tree reversed %}
         .col-xs-4
           %a.reaction-title.btn-info{href: '{% url "reactions:detail" reaction.pk %}'}
-            {% if reaction.author.user_profile.photo %}
-            {% thumbnail reaction.author.user_profile.photo "30x30" crop="center" as im %}
+            {% if reaction.actor.user_profile.photo %}
+            {% thumbnail reaction.actor.user_profile.photo "30x30" crop="center" as im %}
             %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
             {% endthumbnail %}
             {% else %}
