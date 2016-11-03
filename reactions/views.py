@@ -27,7 +27,7 @@ def detail(request, pk):
         generations = [previous_generation, current_generation, next_generation,]
 
     try:
-        rating = Rating.objects.get(user=request.user, reaction=current_reaction).rating
+        rating = Rating.objects.get(rater=request.user, reaction=current_reaction).rating
     except ObjectDoesNotExist:
         rating = None
 
@@ -71,13 +71,13 @@ def rating_good(request, pk):
         reaction = get_object_or_404(Reaction, pk=pk)
         topic = reaction.topic
         try:
-            rating = Rating.objects.get(user=request.user, reaction=reaction)
+            rating = Rating.objects.get(rater=request.user, reaction=reaction)
             if rating.rating == 'P':
                 rating.rating = 'G'
                 rating.save()
                 calculate_score(reaction)
         except ObjectDoesNotExist:
-            Rating.objects.create(user=request.user, topic=topic, reaction=reaction, rating='G')
+            Rating.objects.create(rater=request.user, ratee=reaction.actor, topic=topic, reaction=reaction, rating='G')
             calculate_score(reaction)
         return redirect('reactions:detail', pk)
     raise Http404()
@@ -89,13 +89,13 @@ def rating_pass(request, pk):
         reaction = get_object_or_404(Reaction, pk=pk)
         topic = reaction.topic
         try:
-            rating = Rating.objects.get(user=request.user, reaction=reaction)
+            rating = Rating.objects.get(rater=request.user, reaction=reaction)
             if rating.rating == 'G':
                 rating.rating = 'P'
                 rating.save()
                 calculate_score(reaction)
         except ObjectDoesNotExist:
-            Rating.objects.create(user=request.user, topic=topic, reaction=reaction, rating='P')
+            Rating.objects.create(rater=request.user, ratee=reaction.actor, topic=topic, reaction=reaction, rating='P')
             calculate_score(reaction)
         return redirect('reactions:detail', pk)
     raise Http404()
@@ -107,7 +107,7 @@ def reaction_new(request, pk):
         form = ReactionForm(request.POST)
         if form.is_valid():
             target = get_object_or_404(Reaction, pk=pk)
-            get_object_or_404(Rating, user=request.user, reaction=pk)
+            get_object_or_404(Rating, rater=request.user, reaction=pk)
             reaction = form.save(commit=False)
             reaction.actor = request.user
             reaction.target = target
