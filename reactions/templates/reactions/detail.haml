@@ -48,11 +48,13 @@
       %h3 This reaction is deleted.
       {% else %}
       %h3 {{ current_reaction.title }}
-      %p {{ current_reaction.contents|linebreaks }}
+      .mb-10 {{ current_reaction.contents|linebreaks }}
       {% endif %}
       {% if current_reaction.url %}
       .thumbnail.well
+        {% if current_reaction.url_image %}
         .thumbnail-url-image{style: 'background-image: url("{{ current_reaction.url_image }}")'}
+        {% endif %}
         %a.thumbnail-url{href: '{{ current_reaction.url }}', target: '_blank'}
           %span.thumbnail-url-title {{ current_reaction.url_title }}
         .thumbnail-url-description {{ current_reaction.url_description }}
