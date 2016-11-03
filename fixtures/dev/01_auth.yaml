@@ -12,6 +12,8 @@
   pk: 1
   fields:
     user: 1
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
 - model: auth.user
   pk: 2
   fields:
@@ -26,6 +28,8 @@
   pk: 2
   fields:
     user: 2
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
 - model: auth.user
   pk: 3
   fields:
@@ -40,6 +44,8 @@
   pk: 3
   fields:
     user: 3
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
 - model: auth.user
   pk: 4
   fields:
@@ -54,6 +60,8 @@
   pk: 4
   fields:
     user: 4
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
 - model: auth.user
   pk: 5
   fields:
@@ -68,6 +76,8 @@
   pk: 5
   fields:
     user: 5
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00
 - model: auth.user
   pk: 6
   fields:
@@ -82,3 +92,5 @@
   pk: 6
   fields:
     user: 6
+    created_at: 2000-01-01T00:00:00+00:00
+    updated_at: 2000-01-01T12:00:00+00:00

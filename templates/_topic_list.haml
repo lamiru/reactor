@@ -1,4 +1,4 @@
-{% for topic in topic_list %}
+{% for current_reaction in topic_list %}
 .container
   .row
     .col-xs-12
@@ -7,15 +7,15 @@
           .pull-left
             {% include "_user.html" %}
           .pull-right
-            .large.pt-10 Topic Score {{ topic.topic_score }}
+            .large.pt-10 Topic Score {{ current_reaction.topic_score }}
           .clearfix
-        %a.panel-body.a-block{href: '{% url "reactions:detail" topic.pk %}'}
-          .strong {{ topic.title }}
-          {{ topic.contents|linebreaks }}
-        {% if topic.my_reactions.all %}
+        %a.panel-body.a-block{href: '{% url "reactions:detail" current_reaction.pk %}'}
+          .strong {{ current_reaction.title }}
+          {{ current_reaction.contents|linebreaks }}
+        {% if current_reaction.my_reactions.all %}
         .panel-footer
           .row
-            {% for r in topic.my_reactions.all %}
+            {% for r in current_reaction.my_reactions.all %}
             .col-xs-3
               .panel.panel-default.mt-5.mb-5
                 %a.panel-body.a-block{href: '{% url "reactions:detail" r.pk %}'}

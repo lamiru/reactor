@@ -3,13 +3,15 @@
   %tbody
     %tr
       %td
-        {% if topic.actor.user_profile.photo %}
-        {% thumbnail topic.actor.user_profile.photo "45x45" crop="center" as im %}
+        {% if current_reaction.actor.user_profile.photo %}
+        {% thumbnail current_reaction.actor.user_profile.photo "45x45" crop="center" as im %}
         %img.mr-10{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
         {% endthumbnail %}
         {% else %}
-        %img.mr-10{src: '{% static "images/pica.jpg" %}', width: '45', height: '45'}
+        {% thumbnail current_reaction.actor.user_profile.photo_default "45x45" crop="center" as im %}
+        %img.mr-10{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+        {% endthumbnail %}
         {% endif %}
       %td
-        %div {{ topic.actor.username }}
-        %div {{ topic.created_at }}
+        %div {{ current_reaction.actor.username }}
+        %div {{ current_reaction.created_at }}
