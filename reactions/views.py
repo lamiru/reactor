@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
 from django.db.models import Sum
 from django.http import Http404
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from helpers.score import calculate_score
 from .forms import *
 from .models import *
@@ -49,11 +49,20 @@ def detail_s(request, pk):
 
 
 @login_required
+def recent(request, pk):
+    if request.method == 'POST':
+        reaction_list = get_list_or_404(Reaction.objects.order_by('-id'), topic=pk)
+
+        return render(request, 'reactions/recent.html', {
+            'reaction_list': reaction_list,
+        })
+    raise Http404()
+
+
+@login_required
 def ranking(request, pk):
     if request.method == 'POST':
         topic = get_object_or_404(Reaction, pk=pk)
-        if not topic == topic.topic:
-            return redirect('reactions:ranking', topic.topic)
 
         score_by_actor = User.objects.filter(reaction__topic=topic) \
             .annotate(score=Sum('reaction__score')) \

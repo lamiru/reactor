@@ -13,11 +13,13 @@
         %span {{ forloop.counter }}
       %td.text-right
         {% if i.user_profile.photo %}
-        {% thumbnail i.user_profile.photo "45x45" crop="center" as im %}
+        {% thumbnail i.user_profile.photo "30x30" crop="center" as im %}
         %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
         {% endthumbnail %}
         {% else %}
-        %img{src: '{% static "images/pica.jpg" %}', width: '45', height: '45'}
+        {% thumbnail i.user_profile.photo_default "30x30" crop="center" as im %}
+        %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+        {% endthumbnail %}
         {% endif %}
       %td.text-left
         %span {{ i.username }}

@@ -1,0 +1,36 @@
+{% load staticfiles thumbnail %}
+{% block content %}
+%table.table.margin-center.vertical-middle.recent-modal-table
+  %thead
+    %tr
+      %th No.
+      %th Actor
+      %th.text-center Title
+  %tbody
+    {% for r in reaction_list %}
+    %tr
+      %td.ellipsis
+        %span {{ r.pk }}
+      %td
+        {% if r.actor.user_profile.photo %}
+        {% thumbnail r.actor.user_profile.photo "30x30" crop="center" as im %}
+        %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+        {% endthumbnail %}
+        {% else %}
+        {% thumbnail r.actor.user_profile.photo_default "30x30" crop="center" as im %}
+        %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+        {% endthumbnail %}
+        {% endif %}
+      %td
+        %a.a-block{href: '{% url "reactions:detail" r.pk %}'}
+          {% if r.target %}
+          %div
+            %span.target-highlight.small >> {{ r.target }}
+          {% else %}
+          %div
+            %span.target-highlight.small Topic
+          {% endif %}
+          .mw-150.ellipsis
+            %b {{ r.title }}
+    {% endfor %}
+{% endblock %}

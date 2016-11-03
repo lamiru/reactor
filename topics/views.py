@@ -59,14 +59,6 @@ def search(request):
     })
 
 
-def recent(request, pk):
-    reaction_list = get_list_or_404(Reaction.objects.order_by('-id'), topic=pk)
-
-    return render(request, 'topics/recent.html', {
-        'reaction_list': reaction_list,
-    })
-
-
 @login_required
 def new(request):
     if request.method == 'POST':

@@ -6,9 +6,17 @@
     .modal-content
       .modal-header
         %button.close{'aria-label': 'Close', 'data-dismiss': 'modal', type: 'button'}
-          %span{"aria-hidden" => "true"} ×
+          %span{'aria-hidden': 'true'} ×
         %strong Ranking
-      #ranking-table-wrapper.modal-body
+      .modal-table-wrapper.modal-body
+.recent-modal.modal.fade{tabindex: '-1', role: 'dialog', 'aria-labelledby': 'mySmallModalLabel'}
+  .modal-dialog.modal-sm{role: 'document'}
+    .modal-content
+      .modal-header
+        %button.close{'aria-label': 'Close', 'data-dismiss': 'modal', type: 'button'}
+          %span{'aria-hidden': 'true'} ×
+        %strong Recent
+      .modal-table-wrapper.modal-body
 .container
   .row
     .col-md-3.col-md-push-9
@@ -82,7 +90,8 @@
         {% endfor %}
       .row
         .col-xs-12.text-right
-          %a#ranking-btn.btn.btn-sm.btn-warning{url: '{% url "reactions:ranking" current_reaction.topic %}','data-toggle': 'modal', 'data-target': '.ranking-modal'} Ranking
+          %a.modal-btn.btn.btn-sm.btn-warning{url: '{% url "reactions:recent" current_reaction.topic %}','data-toggle': 'modal', 'data-target': '.recent-modal'} Recent
+          %a.modal-btn.btn.btn-sm.btn-warning{url: '{% url "reactions:ranking" current_reaction.topic %}','data-toggle': 'modal', 'data-target': '.ranking-modal'} Ranking
       .row
         {% for list in generations %}
         .col-xs-12.col-sm-4
@@ -109,13 +118,13 @@
 {% endblock %}
 {% block javascript %}
 :javascript
-  $('#ranking-btn').click(function(){
+  $('.modal-btn').click(function(){
     var url = $(this).attr('url');
     $.ajax({
       method: 'POST',
       url: url,
     }).done(function(data){
-      $('#ranking-table-wrapper').html(data);
+      $('.modal-table-wrapper').html(data);
     });
   });
   $('textarea').liveUrl({
