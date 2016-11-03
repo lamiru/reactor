@@ -49,10 +49,12 @@ def search(request):
     except EmptyPage:
         topic_list = paginator.page(paginator.num_pages)
 
+    rform = ReactionForm()
     sform = SearchForm()
 
     return render(request, 'topics/search.html', {
         'topic_list': topic_list,
+        'rform': rform,
         'sform': sform,
     })
 

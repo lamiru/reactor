@@ -1,0 +1,17 @@
+{% load bootstrap3 %}
+{% if user.is_authenticated %}
+%form{action: '{% url "topics:new" %}', method: 'POST', enctype: 'multipart/form-data'}
+  {% csrf_token %}
+    .panel.panel-default
+      .panel-body.pb-0
+        {% bootstrap_form rform show_label=False %}
+        .thumbnail.well
+          .thumbnail-close
+            {% bootstrap_icon 'remove' %}
+          .thumbnail-url-image
+          %a.thumbnail-url{target: '_blank'}
+            %span.thumbnail-url-title
+          .thumbnail-url-description
+      .panel-footer
+        {% bootstrap_button "Create Topic" button_class="btn btn-primary width-100p" %}
+{% endif %}

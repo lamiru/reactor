@@ -1,16 +1,46 @@
 {% extends "_layout.html" %}
-{% load bootstrap3 bootstrap_pagination %}
+{% load bootstrap_pagination %}
 {% block css %}
 {% endblock %}
 {% block content %}
-{% include "topics/_search_form.html" %}
 .container
   .text-center.mt-m20
-    {% bootstrap_paginate topic_list range=10 %}
+    {% bootstrap_paginate topic_list range=10 show_prev_next="false" show_first_last="true" %}
 .container
   .row
-    .col-xs-12
+    .col-md-3.col-md-push-9
+      %div
+        {% include "topics/_search_form.html" %}
+        .clearfix
+      {% include "topics/_topics_new_form.html" %}
+    .col-md-9.col-md-pull-3
       %h4 Search Results for
         %strong {{ request.GET.q }}
-{% include "_topic_list.html" %}
+      {% include "_topic_list.html" %}
+{% endblock %}
+{% block javascript %}
+:javascript
+  $('textarea').liveUrl({
+    success: function(data){
+      $('#id_url').val(data.url);
+      $('#id_url_title').val(data.title);
+      $('#id_url_description').val(data.description);
+      $('#id_url_image').val(data.image);
+      if(data.image) {
+        $('form .thumbnail-url-image').css('background-image', 'url(' + data.image + ')');
+        $('form .thumbnail-url-image').show();
+      }
+      $('form .thumbnail-url').attr('href', data.url);
+      $('form .thumbnail-url-title').html(data.title);
+      $('form .thumbnail-url-description').html(data.description);
+      $('form .thumbnail').show();
+    }
+  });
+  $('.thumbnail-close').click(function(){
+    $('#id_url').val('');
+    $('#id_url_title').val('');
+    $('#id_url_description').val('');
+    $('#id_url_image').val('');
+    $('form .thumbnail').hide();
+  });
 {% endblock %}

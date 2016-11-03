@@ -1,37 +1,31 @@
 {% for current_reaction in topic_list %}
-.container
-  .row
-    .col-xs-12
-      .panel.panel-default
-        .panel-heading
-          .pull-left
-            {% include "_user.html" %}
-          .pull-right
-            .large.pt-10 Topic Score {{ current_reaction.topic_score }}
-          .clearfix
-        %a.panel-body.a-block{href: '{% url "reactions:detail" current_reaction.pk %}'}
-          .strong {{ current_reaction.title }}
-          {{ current_reaction.contents|linebreaks }}
-        {% if current_reaction.my_reactions.all %}
-        .panel-footer
-          .row
-            {% for r in current_reaction.my_reactions.all %}
-            .col-xs-12.col-sm-4.col-md-3
-              .panel.panel-default.mt-5.mb-5
-                %a.panel-body.a-block{href: '{% url "reactions:detail" r.pk %}'}
-                  .pull-left
-                    .small.font-black {{ r.created_at }}
-                  .pull-right
-                    .small.font-black {{ r.score }}
-                  .clearfix
-                  .strong.ellipsis {{ r.title }}
-            {% endfor %}
-          .clearfix
-        {% endif %}
+.panel.panel-default
+  .panel-heading
+    .pull-left
+      {% include "_user.html" %}
+    .pull-right
+      .large.pt-10 Topic Score {{ current_reaction.topic_score }}
+    .clearfix
+  %a.panel-body.a-block{href: '{% url "reactions:detail" current_reaction.pk %}'}
+    .strong {{ current_reaction.title }}
+    {{ current_reaction.contents|linebreaks }}
+  {% if current_reaction.my_reactions.all %}
+  .panel-footer
+    .row
+      {% for r in current_reaction.my_reactions.all %}
+      .col-xs-12.col-sm-4.col-md-3
+        .panel.panel-default.mt-5.mb-5
+          %a.panel-body.a-block{href: '{% url "reactions:detail" r.pk %}'}
+            .pull-left
+              .small.font-black {{ r.created_at }}
+            .pull-right
+              .small.font-black {{ r.score }}
+            .clearfix
+            .strong.ellipsis {{ r.title }}
+      {% endfor %}
+    .clearfix
+  {% endif %}
 {% endfor %}
 {% if not topic_list %}
-.container
-  .row
-    .col-xs-12
-      %h5 There are no results.
+%h5 There are no results.
 {% endif %}
