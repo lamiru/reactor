@@ -7,9 +7,11 @@ set -e
 source ~/.bash_profile
 
 # Extract project
+mv $PROJECT_DIR/media /home/ec2-user
 rm -rf $PROJECT_DIR
 mkdir $PROJECT_DIR
 tar -xzf /home/ec2-user/$PROJECT_NAME.tar.gz -C $PROJECT_DIR
+mv /home/ec2-user/media $PROJECT_DIR
 
 # Copy files
 yes | cp -rf $PROJECT_DIR/deploy/nginx.conf /etc/nginx

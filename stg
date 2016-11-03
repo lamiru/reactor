@@ -6,7 +6,7 @@ source deploy/.common
 SSH_HOST='reactor-'$ENV'-web'
 
 tar --exclude='db.sqlite3' --exclude='.DS_Store' --exclude='static/CACHE' \
-  --exclude='.git' --exclude='.packages' --exclude='__pycache__' --exclude='media/cache' \
+  --exclude='.git' --exclude='.packages' --exclude='__pycache__' --exclude='media' \
   --exclude='config/*.py' --exclude='celerybeat-schedule.db' --exclude='dump.rdb' \
   -czf ~/$PROJECT_NAME.tar.gz .
 
