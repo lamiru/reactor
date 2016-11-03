@@ -5,10 +5,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 urlpatterns = i18n_patterns(
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin', admin.site.urls),
     url(r'^', include('accounts.urls')),
-    url(r'^reactions/', include('reactions.urls')),
-    url(r'^topics/', include('topics.urls')),
+    url(r'^reactions', include('reactions.urls')),
+    url(r'^topics', include('topics.urls')),
     prefix_default_language=False
 )
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
