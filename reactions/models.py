@@ -37,9 +37,9 @@ class Reaction(models.Model):
 
     def get_current_generation(self):
         if self.target is not None:
-            return self.target.target_reactions.all()
+            return self.target.target_reactions.all().order_by('-score')
         else:
-            return Reaction.objects.filter(pk=self.pk)
+            return Reaction.objects.filter(pk=self.pk).order_by('-score')
 
     def get_previous_generation(self):
         if self.target is not None:
@@ -48,7 +48,7 @@ class Reaction(models.Model):
             return None
 
     def get_next_generation(self):
-        return self.target_reactions.all()
+        return self.target_reactions.all().order_by('-score')
 
     def get_family(self):
         return Reaction.objects.filter(topic=self.topic)
