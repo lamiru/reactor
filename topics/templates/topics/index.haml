@@ -3,7 +3,7 @@
 {% block css %}
 {% endblock %}
 {% block content %}
-{% include "topics/_searchform.html" %}
+{% include "topics/_search_form.html" %}
 .container
   .text-center.mt-m20
     {% bootstrap_paginate topic_list range=10 show_prev_next="false" show_first_last="true" %}
@@ -13,9 +13,9 @@
   .row
     %form.topic-new-form{action: '{% url "topics:new" %}', method: 'POST', enctype: 'multipart/form-data'}
       {% csrf_token %}
-      .col-xs-10
+      .col-md-10.col-sm-9
         {% bootstrap_form rform show_label=False %}
-      .col-xs-2.button-wrapper
+      .col-md-2.col-sm-3.button-wrapper
         {% buttons %}
         %button.btn.btn-primary.width-100p Create Topic
         {% endbuttons %}

@@ -16,13 +16,15 @@ def detail(request, pk):
     current_reaction = get_object_or_404(Reaction, pk=pk)
 
     tree = current_reaction.get_tree()
-    children = current_reaction.get_children()
+    next_generation = current_reaction.get_next_generation()
     current_generation = current_reaction.get_current_generation()
-    parents_generation = current_reaction.get_parents_generation()
-    if parents_generation is None:
-        lists = [current_generation, children, [],]
+    previous_generation = current_reaction.get_previous_generation()
+    if previous_generation is None:
+        g_title = ['Current', 'Next', '']
+        generations = [current_generation, next_generation, [],]
     else:
-        lists = [parents_generation, current_generation, children,]
+        g_title = ['Previous', 'Current', 'Next',]
+        generations = [previous_generation, current_generation, next_generation,]
 
     try:
         rating = Rating.objects.get(user=request.user, reaction=current_reaction).rating
@@ -33,7 +35,8 @@ def detail(request, pk):
 
     return render(request, 'reactions/detail.html', {
         'tree': tree,
-        'lists': lists,
+        'g_title': g_title,
+        'generations': generations,
         'current_reaction': current_reaction,
         'rating': rating,
         'form': form,

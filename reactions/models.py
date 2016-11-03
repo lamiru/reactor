@@ -41,13 +41,13 @@ class Reaction(models.Model):
         else:
             return Reaction.objects.filter(pk=self.pk)
 
-    def get_parents_generation(self):
+    def get_previous_generation(self):
         if self.target is not None:
             return self.target.get_current_generation()
         else:
             return None
 
-    def get_children(self):
+    def get_next_generation(self):
         return self.target_reactions.all()
 
     def get_family(self):

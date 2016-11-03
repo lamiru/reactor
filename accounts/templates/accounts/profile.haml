@@ -1,7 +1,7 @@
 {% extends "_layout.html" %}
 {% load i18n bootstrap3 %}
 {% block content %}
-.mw-400.margin-center
+.mw-400.margin-center.pl-15.pr-15
   %form{action: '', method: 'POST', enctype: 'multipart/form-data'}
     {% csrf_token %}
     {% bootstrap_form uform %}

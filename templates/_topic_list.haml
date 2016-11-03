@@ -16,7 +16,7 @@
         .panel-footer
           .row
             {% for r in current_reaction.my_reactions.all %}
-            .col-xs-3
+            .col-xs-12.col-sm-4.col-md-3
               .panel.panel-default.mt-5.mb-5
                 %a.panel-body.a-block{href: '{% url "reactions:detail" r.pk %}'}
                   .pull-left
