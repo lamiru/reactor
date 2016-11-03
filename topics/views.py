@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_list_or_404
 from reactions.models import Reaction
 from reactions.forms import ReactionForm
 from .forms import *
@@ -54,6 +54,14 @@ def search(request):
     return render(request, 'topics/search.html', {
         'topic_list': topic_list,
         'sform': sform,
+    })
+
+
+def recent(request, pk):
+    reaction_list = get_list_or_404(Reaction.objects.order_by('-id'), topic=pk)
+
+    return render(request, 'topics/recent.html', {
+        'reaction_list': reaction_list,
     })
 
 
