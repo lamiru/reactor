@@ -14,7 +14,8 @@ admin.site.register(Reaction, ReactionAdmin)
 
 class RatingAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'user', 'topic', 'reaction', 'rating',
+        'id', 'rater', 'ratee',
+        'topic', 'reaction', 'rating',
         'created_at', 'updated_at',
     )
 

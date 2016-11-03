@@ -55,7 +55,8 @@ class Reaction(models.Model):
 
 
 class Rating(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True)
+    rater = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True, related_name='ratings_as_rater')
+    ratee = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True, related_name='ratings_as_ratee', null=True, blank=True)
     topic = models.ForeignKey(Reaction, db_index=True, related_name='topic_ratings')
     reaction = models.ForeignKey(Reaction, db_index=True, related_name='reaction_ratings')
     RATING_CHOICES = (
@@ -67,7 +68,7 @@ class Rating(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        unique_together = ('user', 'reaction')
+        unique_together = ('rater', 'reaction')
 
     def __str__(self):
         return str(self.id)
