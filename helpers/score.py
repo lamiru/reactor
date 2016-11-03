@@ -15,8 +15,6 @@ def calculate_all_score():
         else:
             reaction.score += 1
         reaction.save()
-        rating.ratee = reaction.actor
-        rating.save()
 
 def calculate_score(reaction):
     rating_list = Rating.objects.filter(reaction=reaction)

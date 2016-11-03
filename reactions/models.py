@@ -56,7 +56,7 @@ class Reaction(models.Model):
 
 class Rating(models.Model):
     rater = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True, related_name='ratings_as_rater')
-    ratee = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True, related_name='ratings_as_ratee', null=True, blank=True)
+    ratee = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True, related_name='ratings_as_ratee')
     topic = models.ForeignKey(Reaction, db_index=True, related_name='topic_ratings')
     reaction = models.ForeignKey(Reaction, db_index=True, related_name='reaction_ratings')
     RATING_CHOICES = (
