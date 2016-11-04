@@ -1,7 +1,7 @@
 {% extends "_layout.html" %}
 {% load bootstrap3 staticfiles thumbnail %}
 {% block content %}
-.modal.fade{tabindex: '-1', role: 'dialog', 'aria-labelledby': 'mySmallModalLabel'}
+.reaction-detail-modal.modal.fade{tabindex: '-1', role: 'dialog', 'aria-labelledby': 'reaction-detail-modal'}
   .modal-dialog.modal-sm{role: 'document'}
     .modal-content
       .modal-header
@@ -13,9 +13,9 @@
   .row
     .col-lg-3.col-lg-push-9
       .text-center.mb-10
-        %a.modal-btn.btn.btn-sm.btn-warning{url: '{% url "reactions:recent" current_reaction.topic %}','data-toggle': 'modal', 'data-target': '.modal'} Recent
-        %a.modal-btn.btn.btn-sm.btn-warning{url: '{% url "reactions:ranking" current_reaction.topic %}','data-toggle': 'modal', 'data-target': '.modal'} Ranking
-        %a.modal-btn.btn.btn-sm.btn-warning{url: '{% url "reactions:scrapbook" current_reaction.topic %}','data-toggle': 'modal', 'data-target': '.modal'} Scrapbook
+        %a.modal-btn.btn.btn-sm.btn-warning{url: '{% url "reactions:recent" current_reaction.topic %}','data-toggle': 'modal', 'data-target': '.reaction-detail-modal'} Recent
+        %a.modal-btn.btn.btn-sm.btn-warning{url: '{% url "reactions:ranking" current_reaction.topic %}','data-toggle': 'modal', 'data-target': '.reaction-detail-modal'} Ranking
+        %a.modal-btn.btn.btn-sm.btn-warning{url: '{% url "reactions:scrapbook" current_reaction.topic %}','data-toggle': 'modal', 'data-target': '.reaction-detail-modal'} Scrapbook
       .panel.panel-default
         .panel-heading
           .pull-left

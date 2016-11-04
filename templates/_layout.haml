@@ -53,8 +53,8 @@
         .navbar-header
           .brand
             %a{href: '{% url "accounts:index" %}'} Re:actor
-          %button.navbar-toggle.collapsed{type: 'button', 'data-toggle': 'collapse', 'data-target': '#navbar', 'aria-expanded': 'false', 'aria-controls': 'navbar'}
-            %span.sr-only Toggle navigation
+          %button.navbar-toggle.collapsed{type: 'button', 'data-toggle': 'modal', 'data-target': '#right-sidebar'}
+            %span.sr-only Right Sidebar
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
@@ -110,6 +110,44 @@
       .text-center
         %p &copy; 2016 Re:actor. All Rights Reserved.
     %aside#spin-modal
+    %aside#right-sidebar.modal.right.fade{'aria-labelledby': 'right-sidebar', role: 'dialog', tabindex: '-1'}
+      .modal-dialog{role: 'document'}
+        .modal-content
+          .modal-header
+            %button.close{'aria-label': 'Close', 'data-dismiss': 'modal', type: 'button'}
+              %span{'aria-hidden': 'true'} ×
+            {% if user.is_authenticated %}
+            {% if user.user_profile.photo %}
+            {% thumbnail user.user_profile.photo "45x45" crop="center" as im %}
+            %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+            {% endthumbnail %}
+            {% else %}
+            {% thumbnail user.user_profile.photo_default "45x45" crop="center" as im %}
+            %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+            {% endthumbnail %}
+            {% endif %}
+            %span.strong {{ user.username }}
+            {% else %}
+            %h4
+              %b Re:actor
+            {% endif %}
+          .modal-body
+            %ul.nav.nav-pills.nav-stacked
+              %li
+                %a{href: '{% url "topics:index" %}'} Topics
+              {% if user.is_authenticated %}
+              %li
+                %a{href: '{% url "accounts:my_reactions" %}'} My Reactions
+              %li
+                %a{href: '{% url "accounts:profile" %}'} Profile
+              %li
+                %a{href: '{% url "accounts:logout" %}'} Log out
+              {% else %}
+              %li
+                %a{href: '{% url "accounts:login" %}'} Log In
+              %li
+                %a{href: '{% url "accounts:signup" %}'} Sign Up
+              {% endif %}
     :javascript
       var spin_opts = {
         color: '#666'
