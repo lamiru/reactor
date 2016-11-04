@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Q
+from django.http import Http404
 from django.shortcuts import render, redirect
 from django.views.generic import FormView
 from languages import trans as _
@@ -44,6 +45,8 @@ def login_s(request):
 
 
 def signup(request):
+    if not request.user.is_staff and not request.user.is_superuser:
+        raise Http404()
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
