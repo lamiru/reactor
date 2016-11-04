@@ -11,7 +11,7 @@
       .modal-table-wrapper.modal-body
 .container
   .row
-    .col-md-3.col-md-push-9
+    .col-lg-3.col-lg-push-9
       .text-center.mb-10
         %a.modal-btn.btn.btn-sm.btn-warning{url: '{% url "reactions:recent" current_reaction.topic %}','data-toggle': 'modal', 'data-target': '.modal'} Recent
         %a.modal-btn.btn.btn-sm.btn-warning{url: '{% url "reactions:ranking" current_reaction.topic %}','data-toggle': 'modal', 'data-target': '.modal'} Ranking
@@ -76,7 +76,7 @@
           .panel-footer
             {% bootstrap_button "Save" button_class="btn-primary width-100p" %}
       {% endif %}
-    .col-md-9.col-md-pull-3
+    .col-lg-9.col-lg-pull-3
       .mb-10.strong Tree
       .row
         {% for reaction in tree reversed %}

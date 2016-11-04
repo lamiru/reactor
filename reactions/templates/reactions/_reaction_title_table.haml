@@ -1,16 +1,11 @@
 {% load thumbnail %}
-%table
-  %tbody
-    %tr
-      %td
-        {% if reaction.actor.user_profile.photo %}
-        {% thumbnail reaction.actor.user_profile.photo "30x30" crop="center" as im %}
-        %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
-        {% endthumbnail %}
-        {% else %}
-        {% thumbnail reaction.actor.user_profile.photo_default "30x30" crop="center" as im %}
-        %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
-        {% endthumbnail %}
-        {% endif %}
-      %td
-        .mw-200.ellipsis {{ reaction.title }}
+{% if reaction.actor.user_profile.photo %}
+{% thumbnail reaction.actor.user_profile.photo "30x30" crop="center" as im %}
+%img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+{% endthumbnail %}
+{% else %}
+{% thumbnail reaction.actor.user_profile.photo_default "30x30" crop="center" as im %}
+%img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+{% endthumbnail %}
+{% endif %}
+%span {{ reaction.title }}

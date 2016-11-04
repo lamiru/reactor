@@ -8,7 +8,7 @@
     .clearfix
   %a.panel-body.a-block{href: '{% url "reactions:detail" current_reaction.pk %}'}
     .strong {{ current_reaction.title }}
-    {{ current_reaction.contents|linebreaks }}
+    .mt-5 {{ current_reaction.contents|linebreaks }}
   {% if current_reaction.my_reactions.all %}
   .panel-footer
     .row
