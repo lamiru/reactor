@@ -8,6 +8,7 @@ app_name = 'accounts'
 
 urlpatterns = [
     url(r'^signup$', signup, name="signup"),
+    url(r'^login/$', login_s, name='login_s'),
     url(r'^login$', LoginView.as_view(), name='login'),
     url(r'^logout$', logout, {'next_page': 'accounts:login'}, name='logout'),
     url(r'^my_reactions$', my_reactions, name='my_reactions'),

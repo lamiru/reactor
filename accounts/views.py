@@ -38,6 +38,11 @@ class LoginView(FormView):
         return super(LoginView, self).form_valid(form)
 
 
+def login_s(request):
+    next_url = request.GET.get('next') and '?next=' + request.GET.get('next') or ''
+    return redirect('/login' + next_url)
+
+
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
