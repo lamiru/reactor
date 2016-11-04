@@ -77,7 +77,7 @@ def ranking(request, pk):
 @login_required
 def scrapbook(request, pk):
     if request.method == 'POST':
-        scrapbook_list = Reaction.objects.filter(topic=pk).exclude(url='').order_by('-id')
+        scrapbook_list = Reaction.objects.filter(topic=pk).exclude(url='').order_by('-score')
 
         return render(request, 'reactions/scrapbook.html', {
             'scrapbook_list': scrapbook_list,
