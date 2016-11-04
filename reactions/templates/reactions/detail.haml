@@ -1,25 +1,21 @@
 {% extends "_layout.html" %}
 {% load bootstrap3 staticfiles thumbnail %}
 {% block content %}
-.ranking-modal.modal.fade{tabindex: '-1', role: 'dialog', 'aria-labelledby': 'mySmallModalLabel'}
+.modal.fade{tabindex: '-1', role: 'dialog', 'aria-labelledby': 'mySmallModalLabel'}
   .modal-dialog.modal-sm{role: 'document'}
     .modal-content
       .modal-header
         %button.close{'aria-label': 'Close', 'data-dismiss': 'modal', type: 'button'}
           %span{'aria-hidden': 'true'} ×
-        %strong Ranking
-      .modal-table-wrapper.modal-body
-.recent-modal.modal.fade{tabindex: '-1', role: 'dialog', 'aria-labelledby': 'mySmallModalLabel'}
-  .modal-dialog.modal-sm{role: 'document'}
-    .modal-content
-      .modal-header
-        %button.close{'aria-label': 'Close', 'data-dismiss': 'modal', type: 'button'}
-          %span{'aria-hidden': 'true'} ×
-        %strong Recent
+        %strong
       .modal-table-wrapper.modal-body
 .container
   .row
     .col-md-3.col-md-push-9
+      .text-center.mb-10
+        %a.modal-btn.btn.btn-sm.btn-warning{url: '{% url "reactions:recent" current_reaction.topic %}','data-toggle': 'modal', 'data-target': '.modal'} Recent
+        %a.modal-btn.btn.btn-sm.btn-warning{url: '{% url "reactions:ranking" current_reaction.topic %}','data-toggle': 'modal', 'data-target': '.modal'} Ranking
+        %a.modal-btn.btn.btn-sm.btn-warning{url: '{% url "reactions:scrapbook" current_reaction.topic %}','data-toggle': 'modal', 'data-target': '.modal'} Scrapbook
       .panel.panel-default
         .panel-heading
           .pull-left
@@ -89,10 +85,6 @@
             {% include "reactions/_reaction_title_table.html" %}
         {% endfor %}
       .row
-        .col-xs-12.text-right
-          %a.modal-btn.btn.btn-sm.btn-warning{url: '{% url "reactions:recent" current_reaction.topic %}','data-toggle': 'modal', 'data-target': '.recent-modal'} Recent
-          %a.modal-btn.btn.btn-sm.btn-warning{url: '{% url "reactions:ranking" current_reaction.topic %}','data-toggle': 'modal', 'data-target': '.ranking-modal'} Ranking
-      .row
         {% for list in generations %}
         .col-xs-12.col-sm-4
           {% if list %}
@@ -120,11 +112,13 @@
 :javascript
   $('.modal-btn').click(function(){
     var url = $(this).attr('url');
+    var text = $(this).text();
     $.ajax({
       method: 'POST',
       url: url,
     }).done(function(data){
       $('.modal-table-wrapper').html(data);
+      $('.modal-header strong').html(text);
     });
   });
   $('textarea').liveUrl({

@@ -75,6 +75,17 @@ def ranking(request, pk):
 
 
 @login_required
+def scrapbook(request, pk):
+    if request.method == 'POST':
+        scrapbook_list = Reaction.objects.filter(topic=pk).exclude(url='').order_by('-id')
+
+        return render(request, 'reactions/scrapbook.html', {
+            'scrapbook_list': scrapbook_list,
+        })
+    raise Http404()
+
+
+@login_required
 def rating_good(request, pk):
     if request.method == 'POST':
         reaction = get_object_or_404(Reaction, pk=pk)

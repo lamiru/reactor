@@ -1,0 +1,32 @@
+{% load staticfiles thumbnail %}
+{% block content %}
+%table.margin-center.vertical-middle.width-100p
+  %tbody
+    {% for i in scrapbook_list %}
+    %tr
+      %td
+        .panel.panel-default
+          %a.panel-heading.a-block.font-hover{href: '{% url "reactions:detail" i.pk %}'}
+            {% if i.actor.user_profile.photo %}
+            {% thumbnail i.actor.user_profile.photo "30x30" crop="center" as im %}
+            %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+            {% endthumbnail %}
+            {% else %}
+            {% thumbnail i.actor.user_profile.photo_default "30x30" crop="center" as im %}
+            %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+            {% endthumbnail %}
+            {% endif %}
+            %strong {{ i.title }}
+          %a.panel-body.a-block{href: '{{ i.url }}', target: '_blank'}
+            {% if i.url_image %}
+            .scrapbook-image{style: 'background-image: url({{ i.url_image }});'}
+            {% endif %}
+            %strong.font-120p {{ i.url_title }}
+            %div {{ i.url_description }}
+    {% endfor %}
+    {% if not scrapbook_list %}
+    %tr
+      %td.text-center.pb-10
+        %strong There are no scraps.
+    {% endif %}
+{% endblock %}

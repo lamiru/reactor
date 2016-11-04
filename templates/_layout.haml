@@ -67,7 +67,9 @@
               %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
               {% endthumbnail %}
               {% else %}
-              %img{src: '{% static "images/pica.jpg" %}', width: '45', height: '45'}
+              {% thumbnail user.user_profile.photo_default "45x45" crop="center" as im %}
+              %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+              {% endthumbnail %}
               {% endif %}
             %li
               .dropdown
