@@ -34,7 +34,7 @@ release() {
 permission() {
   scp deploy/_permission $SSH_HOST:/home/ec2-user
   ssh -C $SSH_HOST 'sh /home/ec2-user/_permission'
-  echo '===========PERMISSION COMPLETED============'
+  echo '===========PERMISSION COMPLETED==========='
   ssh -C $SSH_HOST 'rm /home/ec2-user/_permission'
 }
 
