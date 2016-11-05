@@ -68,7 +68,6 @@ def new(request):
             topic.actor = request.user
             topic.score = 0
             topic.save()
-            topic = Reaction.objects.get(pk=topic.pk)
             topic.topic = topic
             topic.save()
             return redirect('topics:index')

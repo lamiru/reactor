@@ -20,3 +20,13 @@ class UserProfileAdmin(admin.ModelAdmin):
     )
 
 admin.site.register(UserProfile, UserProfileAdmin)
+
+
+class NotificationAdmin(admin.ModelAdmin):
+    list_display = (
+        'id', 'user', 'active_user', 'passive_user',
+        'category', 'reaction', 'rating', 'checked',
+        'created_at', 'updated_at',
+    )
+
+admin.site.register(Notification, NotificationAdmin)

@@ -3,6 +3,7 @@ from django.db.models.signals import pre_save
 from django.conf import settings
 from sorl.thumbnail import ImageField
 from helpers.file import random_name_with_file_field
+from reactions.models import Reaction, Rating
 
 
 class UserProfile(models.Model):
@@ -51,3 +52,19 @@ class UserProfile(models.Model):
             self.photo_bg_color(),
             self.photo_letters(),
         )
+
+
+class Notification(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='notifications')
+    active_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='active_notifications', blank=True, default='')
+    passive_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='passive_notifications', blank=True, default='')
+    CATEGORY_CHOICES = (
+        ('RE', 'Reaction'),
+        ('RA', 'Rating'),
+    )
+    category = models.CharField(max_length=2, choices=CATEGORY_CHOICES)
+    reaction = models.ForeignKey(Reaction, null=True)
+    rating = models.ForeignKey(Rating, null=True)
+    checked = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

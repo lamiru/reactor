@@ -9,6 +9,7 @@ from django.shortcuts import render, redirect, get_object_or_404, get_list_or_40
 from helpers.score import calculate_score
 from .forms import *
 from .models import *
+from accounts.models import Notification
 
 
 @login_required
@@ -126,13 +127,21 @@ def reaction_new(request, pk):
     if request.method == 'POST':
         form = ReactionForm(request.POST)
         if form.is_valid():
+            #--- Create a reaction ---#
             target = get_object_or_404(Reaction, pk=pk)
-            get_object_or_404(Rating, rater=request.user, reaction=pk)
+            get_object_or_404(Rating, rater=request.user, reaction=pk) # Confirm that the request user made rating to the target.
             reaction = form.save(commit=False)
             reaction.actor = request.user
             reaction.target = target
             reaction.topic = target.topic
             reaction.save()
+
+            #--- Create a notification ---#
+            Notification.objects.create(
+                user=target.actor, active_user=request.user, passive_user=target.actor,
+                category='RE', reaction=reaction,
+            )
+
             return redirect('reactions:detail', reaction.pk)
     raise Http404()
 
