@@ -36,6 +36,7 @@ source ~/.bash_profile
 export LC_ALL=C
 pyenv install $PYTHON_VERSION
 pyenv global $PYTHON_VERSION
+pip install --upgrade pip==$PIP_VERSION
 
 # user www-data
 mkdir -p $PROJECT_DIR

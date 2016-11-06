@@ -6,6 +6,9 @@ sudo su -p <<HERE
 set -e
 source ~/.bash_profile
 
+# Python version
+pip install --upgrade pip==$PIP_VERSION
+
 # Extract project
 mv $PROJECT_DIR/media /home/ec2-user
 rm -rf $PROJECT_DIR
