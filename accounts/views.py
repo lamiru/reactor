@@ -110,5 +110,10 @@ def profile(request):
 
 
 @login_required
+def notifications(request):
+    return render(request, 'accounts/notifications.html', {
+    })
+
+@login_required
 def index(request):
     return redirect('topics:index')

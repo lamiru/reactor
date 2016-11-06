@@ -59,23 +59,51 @@
             %span.icon-bar
             %span.icon-bar
         #navbar.navbar-collapse.collapse
-          %ul.nav.navbar-nav.navbar-right.noselect
+          %ul.nav.navbar-nav.navbar-right.no-select
             {% if user.is_authenticated %}
             %li
               {% if user.user_profile.photo %}
               {% thumbnail user.user_profile.photo "45x45" crop="center" as im %}
-              %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+              %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
               {% endthumbnail %}
               {% else %}
               {% thumbnail user.user_profile.photo_default "45x45" crop="center" as im %}
-              %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+              %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
               {% endthumbnail %}
               {% endif %}
+              %span.font-ccc.mr-10 {{ user.username }}
             %li
               .dropdown
-                #dropdown-menu-1.navbar-icon.dropdown-toggle{'aria-expanded': 'false', 'aria-haspopup': 'true', 'data-toggle': 'dropdown'}
+                .navbar-icon.dropdown-toggle{'aria-expanded': 'false', 'aria-haspopup': 'true', 'data-toggle': 'dropdown'}
+                  {% bootstrap_icon 'globe' %}
+                %ul.dropdown-menu
+                  %li.padding-10
+                    %b Notifications
+                  {% if notification_list %}
+                  {% for notification in notification_list %}
+                  %li.divider{role: 'separator'}
+                  %li
+                    %a{href: '{{ notification.url }}'}
+                      {% if notification.active_user.user_profile.photo %}
+                      {% thumbnail notification.active_user.user_profile.photo "30x30" crop="center" as im %}
+                      %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+                      {% endthumbnail %}
+                      {% else %}
+                      {% thumbnail notification.active_user.user_profile.photo_default "30x30" crop="center" as im %}
+                      %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+                      {% endthumbnail %}
+                      {% endif %}
+                      %span {{ notification.message }}
+                  {% endfor %}
+                  {% else %}
+                  %li
+                    %span There are no notifications.
+                  {% endif %}
+            %li
+              .dropdown
+                .navbar-icon.dropdown-toggle{'aria-expanded': 'false', 'aria-haspopup': 'true', 'data-toggle': 'dropdown'}
                   {% bootstrap_icon 'cog' %}
-                %ul.dropdown-menu{'aria-labelledby': 'dropdown-menu-1'}
+                %ul.dropdown-menu
                   %li
                     %a{href: '{% url "topics:index" %}'} Topics
                     %a{href: '{% url "accounts:my_reactions" %}'} My Reactions
@@ -86,9 +114,9 @@
             {% else %}
             %li
               .dropdown
-                #dropdown-menu-1.navbar-icon.dropdown-toggle{'aria-expanded': 'false', 'aria-haspopup': 'true', 'data-toggle': 'dropdown'}
+                .navbar-icon.dropdown-toggle{'aria-expanded': 'false', 'aria-haspopup': 'true', 'data-toggle': 'dropdown'}
                   {% bootstrap_icon 'cog' %}
-                %ul.dropdown-menu{'aria-labelledby': 'dropdown-menu-1'}
+                %ul.dropdown-menu
                   %li
                     %a{href: '{% url "topics:index" %}'} Topics
                   %li.divider{role: 'separator'}
@@ -140,6 +168,8 @@
                 %a{href: '{% url "accounts:my_reactions" %}'} My Reactions
               %li
                 %a{href: '{% url "accounts:profile" %}'} Profile
+              %li
+                %a{href: '{% url "accounts:notifications" %}'} Notifications
               %li
                 %a{href: '{% url "accounts:logout" %}'} Log out
               {% else %}

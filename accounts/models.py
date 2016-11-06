@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import pre_save
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from sorl.thumbnail import ImageField
 from helpers.file import random_name_with_file_field
 from reactions.models import Reaction, Rating
@@ -68,3 +69,13 @@ class Notification(models.Model):
     checked = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def url(self):
+        if self.category == 'RE':
+            return reverse('reactions:detail', args=[self.reaction.pk])
+        return None
+
+    def message(self):
+        if self.category == 'RE':
+            return '{0} reacted to your reaction.'.format(self.active_user)
+        return None

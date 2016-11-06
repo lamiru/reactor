@@ -1,0 +1,18 @@
+{% extends "_layout.html" %}
+{% load thumbnail %}
+{% block content %}
+{% for notification in notification_list %}
+.panel.panel-default
+  %a.a-block.panel-body{href: '{{ notification.url }}'}
+    {% if notification.active_user.user_profile.photo %}
+    {% thumbnail notification.active_user.user_profile.photo "30x30" crop="center" as im %}
+    %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+    {% endthumbnail %}
+    {% else %}
+    {% thumbnail notification.active_user.user_profile.photo_default "30x30" crop="center" as im %}
+    %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+    {% endthumbnail %}
+    {% endif %}
+    %span {{ notification.message }}
+{% endfor %}
+{% endblock %}
