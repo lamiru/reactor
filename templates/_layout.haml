@@ -82,17 +82,8 @@
                   %li.divider{role: 'separator'}
                   {% for notification in notification_list %}
                   %li
-                    %a.ellipsis{href: '{{ notification.url }}'}
-                      {% if notification.active_user.user_profile.photo %}
-                      {% thumbnail notification.active_user.user_profile.photo "30x30" crop="center" as im %}
-                      %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
-                      {% endthumbnail %}
-                      {% else %}
-                      {% thumbnail notification.active_user.user_profile.photo_default "30x30" crop="center" as im %}
-                      %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
-                      {% endthumbnail %}
-                      {% endif %}
-                      %span {{ notification.message|safe }}
+                    {% include "_notification.html" %}
+                  %li.divider{role: 'separator'}
                   {% endfor %}
                   {% if not notification_list %}
                   %li.padding-10.text-center There are no notifications.

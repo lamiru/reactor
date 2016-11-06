@@ -2,24 +2,14 @@
 {% load thumbnail %}
 {% block content %}
 .panel.panel-default
-  .panel-body
+  .panel-heading
     %b Notifications
   {% for notification in notification_list %}
+  %div
+    {% include "_notification.html" %}
   %hr.margin-0
-  %a.a-block.panel-body.ellipsis{href: '{{ notification.url }}'}
-    {% if notification.active_user.user_profile.photo %}
-    {% thumbnail notification.active_user.user_profile.photo "30x30" crop="center" as im %}
-    %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
-    {% endthumbnail %}
-    {% else %}
-    {% thumbnail notification.active_user.user_profile.photo_default "30x30" crop="center" as im %}
-    %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
-    {% endthumbnail %}
-    {% endif %}
-    %span {{ notification.message|safe }}
   {% endfor %}
   {% if not notification_list %}
-  %hr.margin-0
   .panel-body There are no notifications.
   {% endif %}
 {% endblock %}

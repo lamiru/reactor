@@ -64,8 +64,8 @@ class Notification(models.Model):
         ('RA', 'Rating'),
     )
     category = models.CharField(max_length=2, choices=CATEGORY_CHOICES)
-    reaction = models.ForeignKey(Reaction, null=True)
-    rating = models.ForeignKey(Rating, null=True)
+    reaction = models.ForeignKey(Reaction, null=True, blank=True)
+    rating = models.ForeignKey(Rating, null=True, blank=True)
     checked = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -77,7 +77,7 @@ class Notification(models.Model):
 
     def message(self):
         if self.category == 'RE':
-            return '{0} reacted to <b>{1}</b>.'.format(self.active_user, self.reaction.title)
+            return '{0} reacted to <b>{1}</b>.'.format(self.active_user, self.reaction.target.title)
         elif self.category == 'RA':
             return '{0} rated <b>{1}</b>.'.format(self.active_user, self.reaction.title)
         return None

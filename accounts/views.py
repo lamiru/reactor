@@ -114,6 +114,15 @@ def notifications(request):
     return render(request, 'accounts/notifications.html', {
     })
 
+
+@login_required
+def notification(request, pk):
+    notification = Notification.objects.get(pk=pk)
+    notification.checked = True
+    notification.save()
+    return redirect(notification.url())
+
+
 @login_required
 def index(request):
     return redirect('topics:index')

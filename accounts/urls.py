@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^my_reactions$', my_reactions, name='my_reactions'),
     url(r'^profile$', profile, name='profile'),
     url(r'^notifications$', notifications, name='notifications'),
+    url(r'^notification/(?P<pk>\d+)$', notification, name='notification'),
     url(r'^$', index, name='index'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

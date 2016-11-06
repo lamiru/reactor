@@ -1,0 +1,26 @@
+{% load thumbnail %}
+{% if notification.checked %}
+%a.a-block.padding-10.ellipsis{href: '{% url "accounts:notification" notification.pk %}'}
+  {% if notification.active_user.user_profile.photo %}
+  {% thumbnail notification.active_user.user_profile.photo "30x30" crop="center" as im %}
+  %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+  {% endthumbnail %}
+  {% else %}
+  {% thumbnail notification.active_user.user_profile.photo_default "30x30" crop="center" as im %}
+  %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+  {% endthumbnail %}
+  {% endif %}
+  %span {{ notification.message|safe }}
+{% else %}
+%a.a-block.padding-10.ellipsis.unchecked-notification{href: '{% url "accounts:notification" notification.pk %}'}
+  {% if notification.active_user.user_profile.photo %}
+  {% thumbnail notification.active_user.user_profile.photo "30x30" crop="center" as im %}
+  %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+  {% endthumbnail %}
+  {% else %}
+  {% thumbnail notification.active_user.user_profile.photo_default "30x30" crop="center" as im %}
+  %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+  {% endthumbnail %}
+  {% endif %}
+  %span {{ notification.message|safe }}
+{% endif %}
