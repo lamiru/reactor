@@ -71,11 +71,13 @@ class Notification(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def url(self):
-        if self.category == 'RE':
+        if self.category == 'RA' or self.category == 'RE':
             return reverse('reactions:detail', args=[self.reaction.pk])
         return None
 
     def message(self):
         if self.category == 'RE':
-            return '{0} reacted to your reaction.'.format(self.active_user)
+            return '{0} reacted to <b>{1}</b>.'.format(self.active_user, self.reaction.title)
+        elif self.category == 'RA':
+            return '{0} rated <b>{1}</b>.'.format(self.active_user, self.reaction.title)
         return None

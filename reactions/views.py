@@ -98,7 +98,11 @@ def rating_good(request, pk):
                 rating.save()
                 calculate_score(reaction)
         except ObjectDoesNotExist:
-            Rating.objects.create(rater=request.user, ratee=reaction.actor, topic=topic, reaction=reaction, rating='G')
+            rating = Rating.objects.create(rater=request.user, ratee=reaction.actor, topic=topic, reaction=reaction, rating='G')
+            Notification.objects.create(
+                user=reaction.actor, active_user=request.user, passive_user=reaction.actor,
+                reaction=reaction, rating=rating, category='RA',
+            )
             calculate_score(reaction)
         return redirect('reactions:detail', pk)
     raise Http404()
@@ -116,7 +120,11 @@ def rating_pass(request, pk):
                 rating.save()
                 calculate_score(reaction)
         except ObjectDoesNotExist:
-            Rating.objects.create(rater=request.user, ratee=reaction.actor, topic=topic, reaction=reaction, rating='P')
+            rating = Rating.objects.create(rater=request.user, ratee=reaction.actor, topic=topic, reaction=reaction, rating='P')
+            Notification.objects.create(
+                user=reaction.actor, active_user=request.user, passive_user=reaction.actor,
+                reaction=reaction, rating=rating, category='RA',
+            )
             calculate_score(reaction)
         return redirect('reactions:detail', pk)
     raise Http404()

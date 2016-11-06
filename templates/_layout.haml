@@ -76,14 +76,13 @@
               .dropdown
                 .navbar-icon.dropdown-toggle{'aria-expanded': 'false', 'aria-haspopup': 'true', 'data-toggle': 'dropdown'}
                   {% bootstrap_icon 'globe' %}
-                %ul.dropdown-menu
+                %ul.dropdown-menu.width-300
                   %li.padding-10
                     %b Notifications
-                  {% if notification_list %}
-                  {% for notification in notification_list %}
                   %li.divider{role: 'separator'}
+                  {% for notification in notification_list %}
                   %li
-                    %a{href: '{{ notification.url }}'}
+                    %a.ellipsis{href: '{{ notification.url }}'}
                       {% if notification.active_user.user_profile.photo %}
                       {% thumbnail notification.active_user.user_profile.photo "30x30" crop="center" as im %}
                       %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
@@ -93,11 +92,10 @@
                       %img.mr-5{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
                       {% endthumbnail %}
                       {% endif %}
-                      %span {{ notification.message }}
+                      %span {{ notification.message|safe }}
                   {% endfor %}
-                  {% else %}
-                  %li
-                    %span There are no notifications.
+                  {% if not notification_list %}
+                  %li.padding-10.text-center There are no notifications.
                   {% endif %}
             %li
               .dropdown
