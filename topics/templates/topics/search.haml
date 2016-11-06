@@ -20,6 +20,10 @@
 {% endblock %}
 {% block javascript %}
 :javascript
+  $('.highlight-wrapper').each(function() {
+    var text = $(this).text();
+    $(this).html(text.replace('{{ request.GET.q }}', '<highlight>{{ request.GET.q }}</highlight>'));
+  });
   $('textarea').liveUrl({
     success: function(data){
       $('#id_url').val(data.url);

@@ -50,7 +50,7 @@ def search(request):
         topic_list = paginator.page(paginator.num_pages)
 
     rform = ReactionForm()
-    sform = SearchForm()
+    sform = SearchForm(initial=request.GET)
 
     return render(request, 'topics/search.html', {
         'topic_list': topic_list,

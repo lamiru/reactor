@@ -7,8 +7,8 @@
       .large.pt-10 Topic Score {{ current_reaction.topic_score }}
     .clearfix
   %a.panel-body.a-block{href: '{% url "reactions:detail" current_reaction.pk %}'}
-    .strong {{ current_reaction.title }}
-    .mt-5 {{ current_reaction.contents|linebreaks }}
+    .strong.highlight-wrapper {{ current_reaction.title }}
+    .mt-5.highlight-wrapper {{ current_reaction.contents|linebreaks }}
   {% if current_reaction.my_reactions.all %}
   .panel-footer
     .row
