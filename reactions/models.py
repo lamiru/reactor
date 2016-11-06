@@ -15,16 +15,13 @@ class Reaction(models.Model):
     url_description = models.CharField(max_length=255, null=True, blank=True)
     url_image = models.CharField(max_length=100, null=True, blank=True)
     score = models.PositiveIntegerField(default=0, db_index=True, verbose_name=_('score'))
+    topic_score = models.PositiveIntegerField(default=0, db_index=True)
     deleted = models.BooleanField(default=False, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return str(self.id)
-
-    def topic_score(self):
-        result = Reaction.objects.filter(topic=self.topic).aggregate(Sum('score'))['score__sum']
-        return result
 
     def get_tree(self):
         reaction_tree = []

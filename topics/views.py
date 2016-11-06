@@ -35,11 +35,12 @@ def search(request):
 
     title_list = Reaction.objects.filter(
         target=None, deleted=False, title__contains=query
-    ).order_by('-id')
+    )
     contents_list = Reaction.objects.filter(
         target=None, deleted=False, contents__contains=query
-    ).order_by('-id')
-    topics = title_list | contents_list
+    )
+    topics = (title_list | contents_list).order_by('-topic_score')
+
     paginator = Paginator(topics, 10)
     page = request.GET.get('page')
     try:

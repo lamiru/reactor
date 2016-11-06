@@ -17,7 +17,7 @@ python manage.py makemigrations --settings=$SETTINGS_NAMESPACE
 python manage.py makemigrations thumbnail --settings=$SETTINGS_NAMESPACE
 python manage.py migrate --settings=$SETTINGS_NAMESPACE
 python manage.py loaddata fixtures/dev/*.yaml
-echo "from helpers.score import calculate_all_score; calculate_all_score()" | python manage.py shell
+echo "from helpers.score import *; calculate_all_score(); calculate_all_topic_score()" | python manage.py shell
 python manage.py collectstatic --noinput --settings=$SETTINGS_NAMESPACE
 
 # service restart

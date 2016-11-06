@@ -70,6 +70,9 @@ class Notification(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return str(self.id)
+
     def url(self):
         if self.category == 'RA' or self.category == 'RE':
             return reverse('reactions:detail', args=[self.reaction.pk])
