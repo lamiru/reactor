@@ -1,0 +1,31 @@
+{% load staticfiles thumbnail %}
+{% block content %}
+%table.table.margin-center.vertical-middle
+  %thead
+    %tr
+      %th.text-center{colspan: '3'}
+        %span.font-ff774e.mr-20 Good: {{ good_count }}
+        %span.font-2a93ff Pass: {{ pass_count }}
+  %tbody
+    {% for i in rating_list %}
+    %tr
+      %td.text-right
+        {% if i.rater.user_profile.photo %}
+        {% thumbnail i.rater.user_profile.photo "30x30" crop="center" as im %}
+        %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+        {% endthumbnail %}
+        {% else %}
+        {% thumbnail i.rater.user_profile.photo_default "30x30" crop="center" as im %}
+        %img{src: '{{ im.url }}', width: '{{ im.width }}', height: '{{ im.height }}'}
+        {% endthumbnail %}
+        {% endif %}
+      %td.text-left
+        %span {{ i.rater.username }}
+      %td.text-center
+        {% if i.rating == 'G' %}
+        %b.font-ff774e {{ i.get_rating_display }}
+        {% else %}
+        %b.font-2a93ff {{ i.get_rating_display }}
+        {% endif %}
+    {% endfor %}
+{% endblock %}

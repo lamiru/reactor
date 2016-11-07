@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^/(?P<pk>\d+)/recent$', recent, name='recent'),
     url(r'^/(?P<pk>\d+)/ranking$', ranking, name='ranking'),
     url(r'^/(?P<pk>\d+)/scrapbook$', scrapbook, name='scrapbook'),
+    url(r'^/(?P<pk>\d+)/ratings$', ratings, name='ratings'),
     url(r'^/(?P<pk>\d+)/good$', rating_good, name='good'),
     url(r'^/(?P<pk>\d+)/pass$', rating_pass, name='pass'),
     # url(r'/^(?P<pk>\d+)/delete$', delete, name='delete'),

@@ -87,6 +87,21 @@ def scrapbook(request, pk):
 
 
 @login_required
+def ratings(request, pk):
+    if request.method == 'POST':
+        rating_list = Rating.objects.filter(reaction=pk)
+        good_count = Rating.objects.filter(reaction=pk, rating='G').count()
+        pass_count = Rating.objects.filter(reaction=pk, rating='P').count()
+
+        return render(request, 'reactions/ratings.html', {
+            'rating_list': rating_list,
+            'good_count': good_count,
+            'pass_count': pass_count,
+        })
+    raise Http404()
+
+
+@login_required
 def rating_good(request, pk):
     if request.method == 'POST':
         reaction = get_object_or_404(Reaction, pk=pk)

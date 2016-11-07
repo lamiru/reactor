@@ -29,6 +29,8 @@
           {% else %}
           .strong {{ current_reaction.title }}
           .mt-5 {{ current_reaction.contents|linebreaks }}
+          %hr.mt-10.mb-10
+          %a.modal-btn.font-666.font-bold{url: '{% url "reactions:ratings" current_reaction.pk %}', 'data-toggle': 'modal', 'data-target': '.reaction-detail-modal'} Ratings
           {% endif %}
           {% if current_reaction.url %}
           %a.a-block.thumbnail.well.mt-10.mb-0{href: '{{ current_reaction.url }}', target: '_blank'}
