@@ -17,7 +17,7 @@ hamlpy() {
 }
 
 runserver() {
-  echo "from helpers.score import *; calculate_all_score(); calculate_all_topic_score()" | python manage.py shell
+  echo "from helpers.score import *; calculate_all_score()" | python manage.py shell
   python manage.py runserver &
 }
 

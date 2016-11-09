@@ -6,7 +6,7 @@ from django.db import IntegrityError
 from django.db.models import Sum
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
-from helpers.score import calculate_score, calculate_topic_score
+from helpers.score import calculate_score
 from .forms import *
 from .models import *
 from accounts.models import Notification
@@ -112,7 +112,6 @@ def rating_good(request, pk):
                 rating.rating = 'G'
                 rating.save()
                 calculate_score(reaction)
-                calculate_topic_score(topic)
         except ObjectDoesNotExist:
             rating = Rating.objects.create(rater=request.user, ratee=reaction.actor, topic=topic, reaction=reaction, rating='G')
             if request.user != reaction.actor:
@@ -121,7 +120,6 @@ def rating_good(request, pk):
                     reaction=reaction, rating=rating, category='RA',
                 )
             calculate_score(reaction)
-            calculate_topic_score(topic)
         return redirect('reactions:detail', pk)
     raise Http404()
 
@@ -137,7 +135,6 @@ def rating_pass(request, pk):
                 rating.rating = 'P'
                 rating.save()
                 calculate_score(reaction)
-                calculate_topic_score(topic)
         except ObjectDoesNotExist:
             rating = Rating.objects.create(rater=request.user, ratee=reaction.actor, topic=topic, reaction=reaction, rating='P')
             if request.user != reaction.actor:
@@ -146,7 +143,6 @@ def rating_pass(request, pk):
                     reaction=reaction, rating=rating, category='RA',
                 )
             calculate_score(reaction)
-            calculate_topic_score(topic)
         return redirect('reactions:detail', pk)
     raise Http404()
 
