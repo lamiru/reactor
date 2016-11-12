@@ -1,7 +1,9 @@
 #!bin/bash
 
 packages() {
+  source deploy/.common
   source .packages/bin/activate
+  pip install --upgrade pip==$PIP_VERSION
   pip install -r requirements.txt
 }
 
