@@ -13,5 +13,5 @@ rcssmin==1.0.6
 rjsmin==1.0.12
 six==1.10.0
 sqlparse==0.1.19
-Pillow==3.4.2
+Pillow==8.1.1
 sorl-thumbnail==12.3
