@@ -8,7 +8,7 @@ django-debug-toolbar==1.4
 django-libsass==0.7
 HamlPy3==0.84.0
 libsass==0.11.1
-PyYAML==3.11
+PyYAML==5.4
 rcssmin==1.0.6
 rjsmin==1.0.12
 six==1.10.0
